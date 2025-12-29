@@ -52,6 +52,7 @@ model Service {
   category        ServiceCategory? @relation(fields: [categoryId], references: [categoryId])
   bookings        Booking[]
   galleryImages   GalleryImage[]
+  recommendations Recommendation[]
 
   @@map("services")
 }
