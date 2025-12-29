@@ -41,5 +41,8 @@ next-env.d.ts
 # uploads
 /public/uploads
 
+# export files
+scripts/services-export.json
+
 
 
