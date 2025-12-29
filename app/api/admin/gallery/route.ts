@@ -3,6 +3,9 @@ import { prisma } from '@/lib/prisma'
 import { requireAdmin } from '@/lib/middleware'
 import { z } from 'zod'
 
+export const maxDuration = 30
+export const dynamic = 'force-dynamic'
+
 const galleryImageSchema = z.object({
   title: z.string().optional().nullable(),
   description: z.string().optional().nullable(),
