@@ -173,27 +173,48 @@ export default function AdminGalleryPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (!formData.beforeImageUrl || !formData.afterImageUrl) {
-      alert('Будь ласка, завантажте зображення')
+    console.log('Відправка форми:', { beforePreview, afterPreview, formData })
+
+    // Перевіряємо, що є завантажені зображення
+    // Використовуємо preview як основний джерело, оскільки він завжди актуальний після завантаження
+    let beforeUrls: string[] = [...beforePreview]
+    let afterUrls: string[] = [...afterPreview]
+
+    // Якщо немає в preview, пробуємо розпарсити з formData (на випадок редагування)
+    if (beforeUrls.length === 0 && formData.beforeImageUrl) {
+      try {
+        const parsed = JSON.parse(formData.beforeImageUrl)
+        beforeUrls = Array.isArray(parsed) ? parsed : [formData.beforeImageUrl]
+      } catch {
+        beforeUrls = [formData.beforeImageUrl]
+      }
+    }
+
+    if (afterUrls.length === 0 && formData.afterImageUrl) {
+      try {
+        const parsed = JSON.parse(formData.afterImageUrl)
+        afterUrls = Array.isArray(parsed) ? parsed : [formData.afterImageUrl]
+      } catch {
+        afterUrls = [formData.afterImageUrl]
+      }
+    }
+
+    console.log('Підготовлені URL:', { beforeUrls, afterUrls })
+
+    // Перевіряємо, що є хоча б одне зображення кожного типу
+    if (beforeUrls.length === 0 || afterUrls.length === 0) {
+      alert('Будь ласка, завантажте хоча б одне зображення &quot;До&quot; та &quot;Після&quot;')
       return
     }
 
-    // Перевіряємо, що є хоча б одне зображення
-    try {
-      const beforeUrls = JSON.parse(formData.beforeImageUrl)
-      const afterUrls = JSON.parse(formData.afterImageUrl)
-      
-      if ((!Array.isArray(beforeUrls) || beforeUrls.length === 0) || 
-          (!Array.isArray(afterUrls) || afterUrls.length === 0)) {
-        alert('Будь ласка, завантажте хоча б одне зображення &quot;До&quot; та &quot;Після&quot;')
-        return
-      }
-    } catch {
-      if (!formData.beforeImageUrl || !formData.afterImageUrl) {
-        alert('Будь ласка, завантажте зображення')
-        return
-      }
+    // Оновлюємо formData з актуальними даними
+    const updatedFormData = {
+      ...formData,
+      beforeImageUrl: JSON.stringify(beforeUrls),
+      afterImageUrl: JSON.stringify(afterUrls),
     }
+
+    console.log('Дані для відправки:', updatedFormData)
 
     try {
       const url = editingImage
@@ -205,32 +226,36 @@ export default function AdminGalleryPage() {
         method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          ...formData,
-          serviceId: formData.serviceId || null,
+          ...updatedFormData,
+          serviceId: updatedFormData.serviceId || null,
         }),
       })
 
-      if (response.ok) {
-        fetchImages()
-        setShowForm(false)
-        setEditingImage(null)
-        setFormData({
-          title: '',
-          description: '',
-          beforeImageUrl: '',
-          afterImageUrl: '',
-          serviceId: '',
-        })
-        setBeforePreview([])
-        setAfterPreview([])
-      } else {
-        const errorData = await response.json()
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}))
         console.error('Error response:', errorData)
-        alert(editingImage ? 'Помилка при оновленні зображення' : 'Помилка при додаванні зображення')
+        throw new Error(errorData.error || `HTTP ${response.status}: Помилка збереження`)
       }
+
+      const result = await response.json()
+      console.log('Зображення збережено успішно:', result)
+      
+      fetchImages()
+      setShowForm(false)
+      setEditingImage(null)
+      setFormData({
+        title: '',
+        description: '',
+        beforeImageUrl: '',
+        afterImageUrl: '',
+        serviceId: '',
+      })
+      setBeforePreview([])
+      setAfterPreview([])
     } catch (error) {
-      console.error('Error:', error)
-      alert(editingImage ? 'Помилка при оновленні зображення' : 'Помилка при додаванні зображення')
+      console.error('Error submitting form:', error)
+      const errorMessage = error instanceof Error ? error.message : 'Невідома помилка'
+      alert(`Помилка при збереженні зображення: ${errorMessage}`)
     }
   }
 
