@@ -58,18 +58,18 @@ export default function AdminBookingsPage() {
 
   return (
     <div className="container mx-auto max-w-6xl px-4 py-16">
-      <h1 className="text-4xl font-bold mb-8">Керування бронюваннями</h1>
+      <h1 className="text-4xl font-bold mb-8 text-gray-900">Керування бронюваннями</h1>
 
       <div className="bg-white rounded-lg shadow-md overflow-hidden">
         <table className="w-full">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Клієнт</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Послуга</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Дата</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Час</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Статус</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Дії</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase">Клієнт</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase">Послуга</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase">Дата</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase">Час</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase">Статус</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase">Дії</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
@@ -77,23 +77,23 @@ export default function AdminBookingsPage() {
               <tr key={booking.bookingId}>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div>
-                    <div className="font-medium">{booking.clientName || booking.client?.name || 'N/A'}</div>
-                    <div className="text-sm text-gray-500">{booking.clientEmail || booking.client?.email}</div>
-                    <div className="text-sm text-gray-500">{booking.clientPhone || booking.client?.phone}</div>
+                    <div className="font-medium text-gray-900">{booking.clientName || booking.client?.name || 'N/A'}</div>
+                    <div className="text-sm text-gray-900">{booking.clientEmail || booking.client?.email}</div>
+                    <div className="text-sm text-gray-900">{booking.clientPhone || booking.client?.phone}</div>
                   </div>
                 </td>
                 <td className="px-6 py-4">
-                  <div className="font-medium">{booking.service?.name || 'N/A'}</div>
+                  <div className="font-medium text-gray-900">{booking.service?.name || 'N/A'}</div>
                   {booking.vehicleMake && booking.vehicleModel && (
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm text-gray-900">
                       {booking.vehicleMake} {booking.vehicleModel}
                     </div>
                   )}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
+                <td className="px-6 py-4 whitespace-nowrap text-gray-900">
                   {new Date(booking.bookingDate).toLocaleDateString('uk-UA')}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
+                <td className="px-6 py-4 whitespace-nowrap text-gray-900">
                   {booking.startTime} - {booking.endTime}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
@@ -115,7 +115,7 @@ export default function AdminBookingsPage() {
                   <select
                     value={booking.status}
                     onChange={(e) => updateStatus(booking.bookingId, e.target.value)}
-                    className="text-sm border border-gray-300 rounded px-2 py-1"
+                    className="text-sm border border-gray-300 rounded px-2 py-1 text-gray-900"
                   >
                     <option value="Pending">Pending</option>
                     <option value="Confirmed">Confirmed</option>
