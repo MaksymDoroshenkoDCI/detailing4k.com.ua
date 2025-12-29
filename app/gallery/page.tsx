@@ -49,25 +49,41 @@ export default function GalleryPage() {
         </div>
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {images.map((image) => (
+          {images.map((image) => {
+            // Парсимо JSON якщо це масив, інакше використовуємо як єдиний рядок
+            let afterUrls: string[] = []
+            
+            try {
+              afterUrls = JSON.parse(image.afterImageUrl)
+              if (!Array.isArray(afterUrls)) afterUrls = [image.afterImageUrl]
+            } catch {
+              afterUrls = [image.afterImageUrl]
+            }
+
+            return (
             <div
               key={image.imageId}
               className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow"
               onClick={() => setSelectedImage(image)}
             >
               <div className="relative h-64">
-                <img
-                  src={image.afterImageUrl}
-                  alt={image.title || 'After'}
-                  className="w-full h-full object-cover"
-                />
+                <div className="grid grid-cols-2 gap-1 h-full">
+                  {afterUrls.slice(0, 4).map((url, idx) => (
+                    <img
+                      key={idx}
+                      src={url}
+                      alt={`${image.title || 'After'} ${idx + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  ))}
+                </div>
                 <div className="absolute top-2 left-2 bg-primary-600 text-white px-2 py-1 rounded text-sm">
                   Після
                 </div>
               </div>
               <div className="p-4">
                 {image.title && (
-                  <h3 className="font-semibold mb-1">{image.title}</h3>
+                  <h3 className="font-semibold mb-1 text-gray-900">{image.title}</h3>
                 )}
                 {image.service && (
                   <p className="text-sm text-primary-600 mb-2">
@@ -81,7 +97,8 @@ export default function GalleryPage() {
                 )}
               </div>
             </div>
-          ))}
+            )
+          })}
         </div>
       )}
 
@@ -101,19 +118,47 @@ export default function GalleryPage() {
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <h3 className="text-white mb-2 text-center">До</h3>
-                <img
-                  src={selectedImage.beforeImageUrl}
-                  alt="Before"
-                  className="w-full h-auto rounded"
-                />
+                <div className="grid grid-cols-2 gap-2">
+                  {(() => {
+                    let beforeUrls: string[] = []
+                    try {
+                      beforeUrls = JSON.parse(selectedImage.beforeImageUrl)
+                      if (!Array.isArray(beforeUrls)) beforeUrls = [selectedImage.beforeImageUrl]
+                    } catch {
+                      beforeUrls = [selectedImage.beforeImageUrl]
+                    }
+                    return beforeUrls.map((url, idx) => (
+                      <img
+                        key={idx}
+                        src={url}
+                        alt={`Before ${idx + 1}`}
+                        className="w-full h-auto rounded"
+                      />
+                    ))
+                  })()}
+                </div>
               </div>
               <div>
                 <h3 className="text-white mb-2 text-center">Після</h3>
-                <img
-                  src={selectedImage.afterImageUrl}
-                  alt="After"
-                  className="w-full h-auto rounded"
-                />
+                <div className="grid grid-cols-2 gap-2">
+                  {(() => {
+                    let afterUrls: string[] = []
+                    try {
+                      afterUrls = JSON.parse(selectedImage.afterImageUrl)
+                      if (!Array.isArray(afterUrls)) afterUrls = [selectedImage.afterImageUrl]
+                    } catch {
+                      afterUrls = [selectedImage.afterImageUrl]
+                    }
+                    return afterUrls.map((url, idx) => (
+                      <img
+                        key={idx}
+                        src={url}
+                        alt={`After ${idx + 1}`}
+                        className="w-full h-auto rounded"
+                      />
+                    ))
+                  })()}
+                </div>
               </div>
             </div>
             {selectedImage.title && (

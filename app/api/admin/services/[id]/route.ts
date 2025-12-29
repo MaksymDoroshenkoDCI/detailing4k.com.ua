@@ -9,7 +9,7 @@ const serviceSchema = z.object({
   price: z.number().positive(),
   durationMinutes: z.number().int().positive(),
   categoryId: z.string().uuid().optional().nullable(),
-  imageUrl: z.string().url().optional().nullable(),
+  imageUrl: z.string().optional().nullable(),
 })
 
 export async function PUT(
@@ -21,6 +21,12 @@ export async function PUT(
     if (error) return error
 
     const body = await request.json()
+    
+    // Convert empty string to null for imageUrl
+    if (body.imageUrl === '') {
+      body.imageUrl = null
+    }
+    
     const validatedData = serviceSchema.parse(body)
 
     const service = await prisma.service.update({

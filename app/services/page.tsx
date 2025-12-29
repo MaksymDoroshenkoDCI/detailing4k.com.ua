@@ -65,7 +65,7 @@ export default function ServicesPage() {
                 </div>
               )}
               <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">{service.name}</h3>
+                <h3 className="text-xl font-semibold mb-2 text-gray-900">{service.name}</h3>
                 {service.category && (
                   <span className="text-sm text-primary-600 mb-2 inline-block">
                     {service.category.name}
@@ -80,7 +80,9 @@ export default function ServicesPage() {
                       {Number(service.price).toLocaleString('uk-UA')} ₴
                     </p>
                     <p className="text-sm text-gray-500">
-                      {service.durationMinutes} хв
+                      {service.durationMinutes >= 60 
+                        ? `${(service.durationMinutes / 60).toFixed(1)} год` 
+                        : `${service.durationMinutes} хв`}
                     </p>
                   </div>
                   <Link

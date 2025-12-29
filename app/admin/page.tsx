@@ -59,36 +59,36 @@ export default function AdminDashboard() {
 
   return (
     <div className="container mx-auto max-w-6xl px-4 py-16">
-      <h1 className="text-4xl font-bold mb-8">Адмін панель</h1>
-      <p className="text-gray-600 mb-8">Вітаємо, {user.name}!</p>
+      <h1 className="text-4xl font-bold mb-8 text-white">Адмін панель</h1>
+      <p className="text-white mb-8">Вітаємо, {user.name}!</p>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
         <Link
           href="/admin/bookings"
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
         >
-          <h3 className="text-lg font-semibold mb-2">Бронювання</h3>
+          <h3 className="text-lg font-semibold mb-2 text-gray-900">Бронювання</h3>
           <p className="text-3xl font-bold text-primary-600">{stats.bookings}</p>
         </Link>
         <Link
           href="/admin/consultations"
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
         >
-          <h3 className="text-lg font-semibold mb-2">Консультації</h3>
+          <h3 className="text-lg font-semibold mb-2 text-gray-900">Консультації</h3>
           <p className="text-3xl font-bold text-primary-600">{stats.consultations}</p>
         </Link>
         <Link
           href="/admin/testimonials"
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
         >
-          <h3 className="text-lg font-semibold mb-2">Відгуки</h3>
+          <h3 className="text-lg font-semibold mb-2 text-gray-900">Відгуки</h3>
           <p className="text-3xl font-bold text-primary-600">{stats.testimonials}</p>
         </Link>
         <Link
           href="/admin/services"
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
         >
-          <h3 className="text-lg font-semibold mb-2">Послуги</h3>
+          <h3 className="text-lg font-semibold mb-2 text-gray-900">Послуги</h3>
           <p className="text-3xl font-bold text-primary-600">{stats.services}</p>
         </Link>
       </div>
@@ -98,14 +98,14 @@ export default function AdminDashboard() {
           href="/admin/gallery"
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
         >
-          <h3 className="text-xl font-semibold mb-2">Керування галереєю</h3>
+          <h3 className="text-xl font-semibold mb-2 text-gray-900">Керування галереєю</h3>
           <p className="text-gray-600">Додавати та редагувати зображення "до/після"</p>
         </Link>
         <Link
           href="/admin/services"
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
         >
-          <h3 className="text-xl font-semibold mb-2">Керування послугами</h3>
+          <h3 className="text-xl font-semibold mb-2 text-gray-900">Керування послугами</h3>
           <p className="text-gray-600">Додавати, редагувати та видаляти послуги</p>
         </Link>
       </div>

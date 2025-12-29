@@ -6,8 +6,8 @@ import { z } from 'zod'
 const galleryImageSchema = z.object({
   title: z.string().optional().nullable(),
   description: z.string().optional().nullable(),
-  beforeImageUrl: z.string().url(),
-  afterImageUrl: z.string().url(),
+  beforeImageUrl: z.string().min(1, 'Before image URL is required'),
+  afterImageUrl: z.string().min(1, 'After image URL is required'),
   serviceId: z.string().uuid().optional().nullable(),
 })
 
