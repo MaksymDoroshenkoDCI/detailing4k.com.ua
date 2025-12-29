@@ -1,10 +1,10 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { Service } from '@/types'
 
-export default function BookingPage() {
+function BookingForm() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const serviceIdParam = searchParams.get('serviceId')
@@ -234,5 +234,14 @@ export default function BookingPage() {
   )
 }
 
-
-
+export default function BookingPage() {
+  return (
+    <Suspense fallback={
+      <div className="container mx-auto max-w-2xl px-4 py-16 text-center">
+        <p>Завантаження...</p>
+      </div>
+    }>
+      <BookingForm />
+    </Suspense>
+  )
+}
