@@ -1,0 +1,149 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Client {
+  clientId        String        @id @default(uuid()) @map("client_id")
+  name            String
+  email           String        @unique
+  phone           String?       @unique
+  passwordHash    String        @map("password_hash")
+  createdAt       DateTime      @default(now()) @map("created_at")
+  updatedAt       DateTime      @updatedAt @map("updated_at")
+
+  bookings        Booking[]
+  testimonials    Testimonial[]
+  recommendations Recommendation[]
+
+  @@map("clients")
+}
+
+model ServiceCategory {
+  categoryId      String        @id @default(uuid()) @map("category_id")
+  name            String
+  description     String?
+  createdAt       DateTime      @default(now()) @map("created_at")
+  updatedAt       DateTime      @updatedAt @map("updated_at")
+
+  services        Service[]
+
+  @@map("service_categories")
+}
+
+model Service {
+  serviceId       String        @id @default(uuid()) @map("service_id")
+  name            String
+  description     String?
+  price           Decimal       @db.Decimal(10, 2)
+  durationMinutes Int           @map("duration_minutes")
+  categoryId      String?       @map("category_id")
+  imageUrl        String?       @map("image_url")
+  createdAt       DateTime      @default(now()) @map("created_at")
+  updatedAt       DateTime      @updatedAt @map("updated_at")
+
+  category        ServiceCategory? @relation(fields: [categoryId], references: [categoryId])
+  bookings        Booking[]
+  galleryImages   GalleryImage[]
+
+  @@map("services")
+}
+
+model Booking {
+  bookingId       String        @id @default(uuid()) @map("booking_id")
+  clientId        String?       @map("client_id")
+  serviceId       String        @map("service_id")
+  bookingDate     DateTime      @db.Date @map("booking_date")
+  startTime       String        @map("start_time") // Time as string (HH:MM)
+  endTime         String        @map("end_time") // Time as string (HH:MM)
+  vehicleMake     String?       @map("vehicle_make")
+  vehicleModel    String?       @map("vehicle_model")
+  status          String        @default("Pending") // Pending, Confirmed, Completed, Cancelled
+  clientName      String?       @map("client_name")
+  clientEmail     String?       @map("client_email")
+  clientPhone     String?       @map("client_phone")
+  createdAt       DateTime      @default(now()) @map("created_at")
+  updatedAt       DateTime      @updatedAt @map("updated_at")
+
+  client          Client?       @relation(fields: [clientId], references: [clientId])
+  service         Service       @relation(fields: [serviceId], references: [serviceId])
+
+  @@map("bookings")
+}
+
+model GalleryImage {
+  imageId         String        @id @default(uuid()) @map("image_id")
+  serviceId       String?       @map("service_id")
+  title           String?
+  description     String?
+  beforeImageUrl  String        @map("before_image_url")
+  afterImageUrl   String        @map("after_image_url")
+  createdAt       DateTime      @default(now()) @map("created_at")
+  updatedAt       DateTime      @updatedAt @map("updated_at")
+
+  service         Service?      @relation(fields: [serviceId], references: [serviceId])
+
+  @@map("gallery_images")
+}
+
+model Testimonial {
+  testimonialId   String        @id @default(uuid()) @map("testimonial_id")
+  clientId       String?       @map("client_id")
+  text           String
+  rating         Int?          // 1-5 stars
+  datePosted     DateTime      @default(now()) @map("date_posted")
+  approved       Boolean       @default(false)
+  clientName     String?       @map("client_name") // For anonymous testimonials
+
+  client         Client?       @relation(fields: [clientId], references: [clientId])
+
+  @@map("testimonials")
+}
+
+model Consultation {
+  consultationId  String        @id @default(uuid()) @map("consultation_id")
+  name           String
+  email          String
+  phone          String?
+  message        String
+  status         String        @default("New") // New, Reviewed, Responded
+  createdAt      DateTime      @default(now()) @map("created_at")
+  updatedAt      DateTime      @updatedAt @map("updated_at")
+
+  @@map("consultations")
+}
+
+model Recommendation {
+  recommendationId String       @id @default(uuid()) @map("recommendation_id")
+  clientId        String        @map("client_id")
+  serviceId       String        @map("service_id")
+  text           String
+  createdAt      DateTime      @default(now()) @map("created_at")
+
+  client         Client        @relation(fields: [clientId], references: [clientId])
+  service        Service       @relation(fields: [serviceId], references: [serviceId])
+
+  @@map("recommendations")
+}
+
+model Admin {
+  adminId        String        @id @default(uuid()) @map("admin_id")
+  name           String
+  email          String        @unique
+  passwordHash   String        @map("password_hash")
+  role           String        @default("Editor") // SuperAdmin, Editor, BookingManager
+  createdAt      DateTime      @default(now()) @map("created_at")
+  updatedAt      DateTime      @updatedAt @map("updated_at")
+
+  @@map("admins")
+}
+
+
+
