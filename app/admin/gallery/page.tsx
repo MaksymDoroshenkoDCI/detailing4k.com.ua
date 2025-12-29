@@ -61,39 +61,61 @@ export default function AdminGalleryPage() {
     }
 
     try {
-      const uploadPromises = Array.from(files).map(async (file) => {
-        const formData = new FormData()
-        formData.append('file', file)
+      const uploadPromises = Array.from(files).map(async (file, index) => {
+        try {
+          const formData = new FormData()
+          formData.append('file', file)
 
-        const response = await fetch('/api/upload', {
-          method: 'POST',
-          body: formData,
-        })
+          const response = await fetch('/api/upload', {
+            method: 'POST',
+            body: formData,
+          })
 
-        if (!response.ok) {
-          throw new Error('Помилка завантаження зображення')
+          if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}))
+            throw new Error(errorData.error || `HTTP ${response.status}: Помилка завантаження зображення`)
+          }
+
+          const data = await response.json()
+          if (!data.url) {
+            throw new Error('Сервер не повернув URL зображення')
+          }
+          return data.url
+        } catch (error) {
+          console.error(`Помилка завантаження файлу ${index + 1}:`, error)
+          throw error
         }
-
-        const data = await response.json()
-        return data.url
       })
 
       const urls = await Promise.all(uploadPromises)
+      
+      // Фільтруємо успішно завантажені URL
+      const successfulUrls = urls.filter(url => url && url.length > 0)
+
+      if (successfulUrls.length === 0) {
+        alert('Не вдалося завантажити жодне зображення. Перевірте формат та розмір файлів.')
+        return
+      }
+
+      if (successfulUrls.length < urls.length) {
+        alert(`Успішно завантажено ${successfulUrls.length} з ${urls.length} зображень`)
+      }
 
       if (type === 'before') {
         const currentUrls = beforePreview
-        const newUrls = [...currentUrls, ...urls].slice(0, 4) // Максимум 4
+        const newUrls = [...currentUrls, ...successfulUrls].slice(0, 4) // Максимум 4
         setBeforePreview(newUrls)
         setFormData((prev) => ({ ...prev, beforeImageUrl: JSON.stringify(newUrls) }))
       } else {
         const currentUrls = afterPreview
-        const newUrls = [...currentUrls, ...urls].slice(0, 4) // Максимум 4
+        const newUrls = [...currentUrls, ...successfulUrls].slice(0, 4) // Максимум 4
         setAfterPreview(newUrls)
         setFormData((prev) => ({ ...prev, afterImageUrl: JSON.stringify(newUrls) }))
       }
     } catch (error) {
       console.error('Error uploading images:', error)
-      alert('Помилка при завантаженні зображення')
+      const errorMessage = error instanceof Error ? error.message : 'Невідома помилка'
+      alert(`Помилка при завантаженні зображення: ${errorMessage}`)
     } finally {
       if (type === 'before') {
         setUploadingBefore(false)
