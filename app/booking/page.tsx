@@ -109,7 +109,7 @@ function BookingForm() {
 
   return (
     <div className="container mx-auto max-w-2xl px-4 py-16">
-      <h1 className="text-4xl font-bold mb-8 text-center text-gray-900">Онлайн бронювання</h1>
+      <h1 className="text-4xl font-bold mb-8 text-center text-white">Онлайн бронювання</h1>
 
       <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6 space-y-6">
         {/* Service Selection */}
@@ -118,7 +118,7 @@ function BookingForm() {
           <select
             value={selectedService}
             onChange={(e) => setSelectedService(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900"
             required
           >
             <option value="">Оберіть послугу</option>
@@ -138,7 +138,7 @@ function BookingForm() {
             value={selectedDate}
             onChange={(e) => setSelectedDate(e.target.value)}
             min={minDate}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900"
             required
           />
         </div>
@@ -177,7 +177,7 @@ function BookingForm() {
                 type="text"
                 value={formData.clientName}
                 onChange={(e) => setFormData({ ...formData, clientName: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900"
                 required
               />
             </div>
@@ -187,7 +187,7 @@ function BookingForm() {
                 type="email"
                 value={formData.clientEmail}
                 onChange={(e) => setFormData({ ...formData, clientEmail: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900"
                 required
               />
             </div>
@@ -197,7 +197,7 @@ function BookingForm() {
                 type="tel"
                 value={formData.clientPhone}
                 onChange={(e) => setFormData({ ...formData, clientPhone: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900"
                 required
               />
             </div>
@@ -207,7 +207,7 @@ function BookingForm() {
                 type="text"
                 value={formData.vehicleMake}
                 onChange={(e) => setFormData({ ...formData, vehicleMake: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900"
               />
             </div>
             <div>
@@ -216,7 +216,7 @@ function BookingForm() {
                 type="text"
                 value={formData.vehicleModel}
                 onChange={(e) => setFormData({ ...formData, vehicleModel: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900"
               />
             </div>
           </div>
