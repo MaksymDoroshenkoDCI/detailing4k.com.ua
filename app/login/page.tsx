@@ -47,7 +47,7 @@ export default function LoginPage() {
   return (
     <div className="container mx-auto max-w-md px-4 py-16">
       <div className="bg-white rounded-lg shadow-md p-8">
-        <h1 className="text-3xl font-bold mb-6 text-center">Вхід</h1>
+        <h1 className="text-3xl font-bold mb-6 text-center text-gray-900">Вхід</h1>
 
         {error && (
           <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-4">
@@ -57,22 +57,22 @@ export default function LoginPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-2">Email</label>
+            <label className="block text-sm font-medium mb-2 text-gray-900">Email</label>
             <input
               type="email"
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900"
               required
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2">Пароль</label>
+            <label className="block text-sm font-medium mb-2 text-gray-900">Пароль</label>
             <input
               type="password"
               value={formData.password}
               onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900"
               required
             />
           </div>

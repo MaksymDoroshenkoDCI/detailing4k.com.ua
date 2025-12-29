@@ -12,10 +12,20 @@ export default function ServicesPage() {
     fetch('/api/services')
       .then((res) => res.json())
       .then((data) => {
-        setServices(data)
+        // Ensure data is an array
+        if (Array.isArray(data)) {
+          setServices(data)
+        } else {
+          console.error('Invalid data format:', data)
+          setServices([])
+        }
         setLoading(false)
       })
-      .catch(() => setLoading(false))
+      .catch((error) => {
+        console.error('Error fetching services:', error)
+        setServices([])
+        setLoading(false)
+      })
   }, [])
 
   if (loading) {
@@ -33,7 +43,7 @@ export default function ServicesPage() {
         Виберіть послугу, яка вам потрібна, та запишіться онлайн
       </p>
 
-      {services.length === 0 ? (
+      {!Array.isArray(services) || services.length === 0 ? (
         <div className="text-center py-12">
           <p className="text-gray-500 mb-4">Послуги ще не додані</p>
           <p className="text-sm text-gray-400">Адміністратор додасть послуги найближчим часом</p>

@@ -37,7 +37,7 @@ export default function Home() {
       {/* Services Preview */}
       <section className="py-16 px-4 bg-gray-50">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold text-center mb-12">Наші послуги</h2>
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">Наші послуги</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white p-6 rounded-lg shadow-md">
               <div className="text-4xl mb-4">✨</div>

@@ -12,10 +12,20 @@ export default function GalleryPage() {
     fetch('/api/gallery')
       .then((res) => res.json())
       .then((data) => {
-        setImages(data)
+        // Ensure data is an array
+        if (Array.isArray(data)) {
+          setImages(data)
+        } else {
+          console.error('Invalid data format:', data)
+          setImages([])
+        }
         setLoading(false)
       })
-      .catch(() => setLoading(false))
+      .catch((error) => {
+        console.error('Error fetching gallery images:', error)
+        setImages([])
+        setLoading(false)
+      })
   }, [])
 
   if (loading) {
@@ -33,7 +43,7 @@ export default function GalleryPage() {
         До та після - результати нашої роботи
       </p>
 
-      {images.length === 0 ? (
+      {!Array.isArray(images) || images.length === 0 ? (
         <div className="text-center py-12">
           <p className="text-gray-500">Галерея порожня</p>
         </div>

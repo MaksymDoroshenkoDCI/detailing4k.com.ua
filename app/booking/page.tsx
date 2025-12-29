@@ -27,7 +27,19 @@ export default function BookingPage() {
   useEffect(() => {
     fetch('/api/services')
       .then((res) => res.json())
-      .then((data) => setServices(data))
+      .then((data) => {
+        // Ensure data is an array
+        if (Array.isArray(data)) {
+          setServices(data)
+        } else {
+          console.error('Invalid data format:', data)
+          setServices([])
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching services:', error)
+        setServices([])
+      })
   }, [])
 
   useEffect(() => {
@@ -97,12 +109,12 @@ export default function BookingPage() {
 
   return (
     <div className="container mx-auto max-w-2xl px-4 py-16">
-      <h1 className="text-4xl font-bold mb-8 text-center">Онлайн бронювання</h1>
+      <h1 className="text-4xl font-bold mb-8 text-center text-gray-900">Онлайн бронювання</h1>
 
       <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6 space-y-6">
         {/* Service Selection */}
         <div>
-          <label className="block text-sm font-medium mb-2">Послуга *</label>
+          <label className="block text-sm font-medium mb-2 text-gray-900">Послуга *</label>
           <select
             value={selectedService}
             onChange={(e) => setSelectedService(e.target.value)}
@@ -110,7 +122,7 @@ export default function BookingPage() {
             required
           >
             <option value="">Оберіть послугу</option>
-            {services.map((service) => (
+            {Array.isArray(services) && services.map((service) => (
               <option key={service.serviceId} value={service.serviceId}>
                 {service.name} - {Number(service.price).toLocaleString('uk-UA')} ₴
               </option>
@@ -120,7 +132,7 @@ export default function BookingPage() {
 
         {/* Date Selection */}
         <div>
-          <label className="block text-sm font-medium mb-2">Дата *</label>
+          <label className="block text-sm font-medium mb-2 text-gray-900">Дата *</label>
           <input
             type="date"
             value={selectedDate}
@@ -134,7 +146,7 @@ export default function BookingPage() {
         {/* Time Selection */}
         {availableSlots.length > 0 && (
           <div>
-            <label className="block text-sm font-medium mb-2">Час *</label>
+            <label className="block text-sm font-medium mb-2 text-gray-900">Час *</label>
             <div className="grid grid-cols-4 gap-2">
               {availableSlots.map((slot) => (
                 <button
@@ -144,7 +156,7 @@ export default function BookingPage() {
                   className={`px-4 py-2 rounded-lg border transition-colors ${
                     selectedTime === slot
                       ? 'bg-primary-600 text-white border-primary-600'
-                      : 'bg-white border-gray-300 hover:border-primary-500'
+                      : 'bg-white border-gray-300 hover:border-primary-500 text-gray-900'
                   }`}
                 >
                   {slot}
@@ -156,11 +168,11 @@ export default function BookingPage() {
 
         {/* Client Information */}
         <div className="border-t pt-6">
-          <h3 className="text-lg font-semibold mb-4">Ваші дані</h3>
+          <h3 className="text-lg font-semibold mb-4 text-gray-900">Ваші дані</h3>
           
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium mb-2">Ім'я *</label>
+              <label className="block text-sm font-medium mb-2 text-gray-900">Ім'я *</label>
               <input
                 type="text"
                 value={formData.clientName}
@@ -170,7 +182,7 @@ export default function BookingPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-2">Email *</label>
+              <label className="block text-sm font-medium mb-2 text-gray-900">Email *</label>
               <input
                 type="email"
                 value={formData.clientEmail}
@@ -180,7 +192,7 @@ export default function BookingPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-2">Телефон *</label>
+              <label className="block text-sm font-medium mb-2 text-gray-900">Телефон *</label>
               <input
                 type="tel"
                 value={formData.clientPhone}
@@ -190,7 +202,7 @@ export default function BookingPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-2">Марка авто</label>
+              <label className="block text-sm font-medium mb-2 text-gray-900">Марка авто</label>
               <input
                 type="text"
                 value={formData.vehicleMake}
@@ -199,7 +211,7 @@ export default function BookingPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-2">Модель авто</label>
+              <label className="block text-sm font-medium mb-2 text-gray-900">Модель авто</label>
               <input
                 type="text"
                 value={formData.vehicleModel}

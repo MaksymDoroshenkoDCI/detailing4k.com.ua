@@ -38,7 +38,7 @@ export default function ContactPage() {
 
   return (
     <div className="container mx-auto max-w-4xl px-4 py-16">
-      <h1 className="text-4xl font-bold mb-4 text-center">Контакти</h1>
+      <h1 className="text-4xl font-bold mb-4 text-center text-gray-900">Контакти</h1>
       <p className="text-center text-gray-600 mb-12">
         Зв'яжіться з нами для консультації або запитання
       </p>
@@ -46,7 +46,7 @@ export default function ContactPage() {
       <div className="grid md:grid-cols-2 gap-8">
         {/* Contact Form */}
         <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-2xl font-semibold mb-6">Надіслати запит</h2>
+          <h2 className="text-2xl font-semibold mb-6 text-gray-900">Надіслати запит</h2>
           
           {submitted ? (
             <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
@@ -67,7 +67,7 @@ export default function ContactPage() {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium mb-2">Ім'я *</label>
+                <label className="block text-sm font-medium mb-2 text-gray-900">Ім'я *</label>
                 <input
                   type="text"
                   value={formData.name}
@@ -77,7 +77,7 @@ export default function ContactPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-2">Email *</label>
+                <label className="block text-sm font-medium mb-2 text-gray-900">Email *</label>
                 <input
                   type="email"
                   value={formData.email}
@@ -87,7 +87,7 @@ export default function ContactPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-2">Телефон</label>
+                <label className="block text-sm font-medium mb-2 text-gray-900">Телефон</label>
                 <input
                   type="tel"
                   value={formData.phone}
@@ -96,7 +96,7 @@ export default function ContactPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-2">Повідомлення *</label>
+                <label className="block text-sm font-medium mb-2 text-gray-900">Повідомлення *</label>
                 <textarea
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -120,14 +120,14 @@ export default function ContactPage() {
         {/* Contact Information */}
         <div className="space-y-6">
           <div className="bg-white rounded-lg shadow-md p-6">
-            <h3 className="text-xl font-semibold mb-4">Контактна інформація</h3>
+            <h3 className="text-xl font-semibold mb-4 text-gray-900">Контактна інформація</h3>
             <div className="space-y-4">
               <div>
-                <h4 className="font-medium mb-1">Адреса</h4>
+                <h4 className="font-medium mb-1 text-gray-900">Адреса</h4>
                 <p className="text-gray-600">Київ, Україна</p>
               </div>
               <div>
-                <h4 className="font-medium mb-1">Телефон</h4>
+                <h4 className="font-medium mb-1 text-gray-900">Телефон</h4>
                 <a
                   href="tel:+380XXXXXXXXX"
                   className="text-primary-600 hover:text-primary-700"
@@ -136,7 +136,7 @@ export default function ContactPage() {
                 </a>
               </div>
               <div>
-                <h4 className="font-medium mb-1">Email</h4>
+                <h4 className="font-medium mb-1 text-gray-900">Email</h4>
                 <a
                   href="mailto:info@detailing4k.com"
                   className="text-primary-600 hover:text-primary-700"
@@ -169,7 +169,7 @@ export default function ContactPage() {
           </div>
 
           <div className="bg-white rounded-lg shadow-md p-6">
-            <h3 className="text-xl font-semibold mb-4">Графік роботи</h3>
+            <h3 className="text-xl font-semibold mb-4 text-gray-900">Графік роботи</h3>
             <div className="space-y-2 text-gray-600">
               <p>Понеділок - П'ятниця: 9:00 - 18:00</p>
               <p>Субота: 10:00 - 16:00</p>
@@ -179,7 +179,7 @@ export default function ContactPage() {
 
           {/* Google Maps placeholder */}
           <div className="bg-white rounded-lg shadow-md p-6">
-            <h3 className="text-xl font-semibold mb-4">Як нас знайти</h3>
+            <h3 className="text-xl font-semibold mb-4 text-gray-900">Як нас знайти</h3>
             <div className="h-64 bg-gray-200 rounded-lg flex items-center justify-center">
               <p className="text-gray-500">Карта Google Maps</p>
               <p className="text-sm text-gray-400 ml-2">

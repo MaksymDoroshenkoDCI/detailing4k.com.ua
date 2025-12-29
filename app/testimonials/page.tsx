@@ -18,10 +18,20 @@ export default function TestimonialsPage() {
     fetch('/api/testimonials')
       .then((res) => res.json())
       .then((data) => {
-        setTestimonials(data)
+        // Ensure data is an array
+        if (Array.isArray(data)) {
+          setTestimonials(data)
+        } else {
+          console.error('Invalid data format:', data)
+          setTestimonials([])
+        }
         setLoading(false)
       })
-      .catch(() => setLoading(false))
+      .catch((error) => {
+        console.error('Error fetching testimonials:', error)
+        setTestimonials([])
+        setLoading(false)
+      })
   }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -122,7 +132,7 @@ export default function TestimonialsPage() {
         </div>
       )}
 
-      {testimonials.length === 0 ? (
+      {!Array.isArray(testimonials) || testimonials.length === 0 ? (
         <div className="text-center py-12">
           <p className="text-gray-500">Поки що немає відгуків</p>
         </div>
