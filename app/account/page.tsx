@@ -58,25 +58,25 @@ export default function AccountPage() {
 
   return (
     <div className="container mx-auto max-w-6xl px-4 py-16">
-      <h1 className="text-4xl font-bold mb-8">Мій кабінет</h1>
+      <h1 className="text-4xl font-bold mb-8 text-gray-900">Мій кабінет</h1>
 
       <div className="grid md:grid-cols-3 gap-8">
         {/* Profile Info */}
         <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-2xl font-semibold mb-4">Профіль</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-gray-900">Профіль</h2>
           <div className="space-y-3">
             <div>
-              <p className="text-sm text-gray-500">Ім'я</p>
-              <p className="font-medium">{user.name}</p>
+              <p className="text-sm text-gray-700">Ім&apos;я</p>
+              <p className="font-medium text-gray-900">{user.name}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-500">Email</p>
-              <p className="font-medium">{user.email}</p>
+              <p className="text-sm text-gray-700">Email</p>
+              <p className="font-medium text-gray-900">{user.email}</p>
             </div>
             {user.phone && (
               <div>
-                <p className="text-sm text-gray-500">Телефон</p>
-                <p className="font-medium">{user.phone}</p>
+                <p className="text-sm text-gray-700">Телефон</p>
+                <p className="font-medium text-gray-900">{user.phone}</p>
               </div>
             )}
           </div>
@@ -86,7 +86,7 @@ export default function AccountPage() {
         <div className="md:col-span-2">
           <div className="bg-white rounded-lg shadow-md p-6 mb-6">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl font-semibold">Майбутні записи</h2>
+              <h2 className="text-2xl font-semibold text-gray-900">Майбутні записи</h2>
               <Link
                 href="/booking"
                 className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors text-sm"
@@ -95,7 +95,7 @@ export default function AccountPage() {
               </Link>
             </div>
             {upcomingBookings.length === 0 ? (
-              <p className="text-gray-500">Немає майбутніх записів</p>
+              <p className="text-gray-700">Немає майбутніх записів</p>
             ) : (
               <div className="space-y-4">
                 {upcomingBookings.map((booking) => (
@@ -105,14 +105,14 @@ export default function AccountPage() {
                   >
                     <div className="flex justify-between items-start">
                       <div>
-                        <h3 className="font-semibold text-lg">
+                        <h3 className="font-semibold text-lg text-gray-900">
                           {(booking.service as any)?.name || 'Послуга'}
                         </h3>
-                        <p className="text-gray-600">
+                        <p className="text-gray-700">
                           {new Date(booking.bookingDate).toLocaleDateString('uk-UA')} о {booking.startTime}
                         </p>
                         {booking.vehicleMake && booking.vehicleModel && (
-                          <p className="text-sm text-gray-500">
+                          <p className="text-sm text-gray-700">
                             {booking.vehicleMake} {booking.vehicleModel}
                           </p>
                         )}
@@ -141,9 +141,9 @@ export default function AccountPage() {
 
           {/* Past Bookings */}
           <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-2xl font-semibold mb-4">Історія записів</h2>
+            <h2 className="text-2xl font-semibold mb-4 text-gray-900">Історія записів</h2>
             {pastBookings.length === 0 ? (
-              <p className="text-gray-500">Немає минулих записів</p>
+              <p className="text-gray-700">Немає минулих записів</p>
             ) : (
               <div className="space-y-4">
                 {pastBookings.map((booking) => (
@@ -153,14 +153,14 @@ export default function AccountPage() {
                   >
                     <div className="flex justify-between items-start">
                       <div>
-                        <h3 className="font-semibold">
+                        <h3 className="font-semibold text-gray-900">
                           {(booking.service as any)?.name || 'Послуга'}
                         </h3>
-                        <p className="text-gray-600 text-sm">
+                        <p className="text-gray-700 text-sm">
                           {new Date(booking.bookingDate).toLocaleDateString('uk-UA')} о {booking.startTime}
                         </p>
                       </div>
-                      <span className="text-sm text-gray-500">
+                      <span className="text-sm text-gray-700">
                         {booking.status === 'Completed'
                           ? 'Завершено'
                           : booking.status === 'Cancelled'
