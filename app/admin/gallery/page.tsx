@@ -43,6 +43,58 @@ export default function AdminGalleryPage() {
       })
   }
 
+  // Функція для стиснення зображення
+  const compressImage = (file: File, maxWidth: number = 1920, quality: number = 0.8): Promise<File> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = (e) => {
+        const img = new Image()
+        img.onload = () => {
+          const canvas = document.createElement('canvas')
+          let width = img.width
+          let height = img.height
+
+          // Зменшуємо розмір якщо він більший за maxWidth
+          if (width > maxWidth) {
+            height = (height * maxWidth) / width
+            width = maxWidth
+          }
+
+          canvas.width = width
+          canvas.height = height
+
+          const ctx = canvas.getContext('2d')
+          if (!ctx) {
+            reject(new Error('Не вдалося створити canvas контекст'))
+            return
+          }
+
+          ctx.drawImage(img, 0, 0, width, height)
+
+          canvas.toBlob(
+            (blob) => {
+              if (!blob) {
+                reject(new Error('Не вдалося стиснути зображення'))
+                return
+              }
+              const compressedFile = new File([blob], file.name, {
+                type: 'image/jpeg',
+                lastModified: Date.now(),
+              })
+              resolve(compressedFile)
+            },
+            'image/jpeg',
+            quality
+          )
+        }
+        img.onerror = () => reject(new Error('Помилка завантаження зображення'))
+        img.src = e.target?.result as string
+      }
+      reader.onerror = () => reject(new Error('Помилка читання файлу'))
+    })
+  }
+
   const handleImageUpload = async (
     files: FileList | null,
     type: 'before' | 'after'
@@ -63,8 +115,15 @@ export default function AdminGalleryPage() {
     try {
       const uploadPromises = Array.from(files).map(async (file, index) => {
         try {
+          // Стискаємо зображення перед завантаженням
+          let fileToUpload = file
+          if (file.size > 2 * 1024 * 1024) { // Якщо файл більше 2MB
+            fileToUpload = await compressImage(file, 1920, 0.75)
+            console.log(`Зображення ${index + 1} стиснуто: ${(file.size / 1024 / 1024).toFixed(2)}MB -> ${(fileToUpload.size / 1024 / 1024).toFixed(2)}MB`)
+          }
+
           const formData = new FormData()
-          formData.append('file', file)
+          formData.append('file', fileToUpload)
 
           const response = await fetch('/api/upload', {
             method: 'POST',
@@ -234,6 +293,11 @@ export default function AdminGalleryPage() {
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}))
         console.error('Error response:', errorData)
+        
+        if (response.status === 413) {
+          throw new Error('Зображення занадто великі. Будь ласка, використовуйте зображення меншого розміру або менше зображень одночасно.')
+        }
+        
         throw new Error(errorData.error || `HTTP ${response.status}: Помилка збереження`)
       }
 
