@@ -119,7 +119,7 @@ export default function Home() {
               href="/contact"
               className="bg-primary-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors border-2 border-white"
             >
-              Зв'язатися з нами
+              Зв&apos;язатися з нами
             </Link>
           </div>
         </div>

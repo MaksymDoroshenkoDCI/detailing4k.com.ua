@@ -88,7 +88,7 @@ export default function TestimonialsPage() {
           <h2 className="text-2xl font-semibold mb-4">Залишити відгук</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium mb-2">Ваше ім'я (необов'язково)</label>
+              <label className="block text-sm font-medium mb-2">Ваше ім&apos;я (необов&apos;язково)</label>
               <input
                 type="text"
                 value={formData.clientName}
@@ -152,7 +152,7 @@ export default function TestimonialsPage() {
                   </div>
                 )}
               </div>
-              <p className="text-gray-700 mb-4 italic">"{testimonial.text}"</p>
+              <p className="text-gray-700 mb-4 italic">&quot;{testimonial.text}&quot;</p>
               <div className="border-t pt-4">
                 <p className="font-semibold">
                   {testimonial.client?.name || testimonial.clientName || 'Анонімний клієнт'}

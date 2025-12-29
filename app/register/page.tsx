@@ -66,7 +66,7 @@ export default function RegisterPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-2 text-gray-900">Ім'я *</label>
+            <label className="block text-sm font-medium mb-2 text-gray-900">Ім&apos;я *</label>
             <input
               type="text"
               value={formData.name}

@@ -163,7 +163,7 @@ export default function AdminGalleryPage() {
       
       if ((!Array.isArray(beforeUrls) || beforeUrls.length === 0) || 
           (!Array.isArray(afterUrls) || afterUrls.length === 0)) {
-        alert('Будь ласка, завантажте хоча б одне зображення "До" та "Після"')
+        alert('Будь ласка, завантажте хоча б одне зображення &quot;До&quot; та &quot;Після&quot;')
         return
       }
     } catch {
@@ -289,7 +289,7 @@ export default function AdminGalleryPage() {
             {/* Before Image Upload */}
             <div>
               <label className="block text-sm font-medium mb-2 text-gray-900">
-                Зображення "До" * (до 4 зображень)
+                Зображення &quot;До&quot; * (до 4 зображень)
               </label>
               <input
                 type="file"
@@ -332,7 +332,7 @@ export default function AdminGalleryPage() {
             {/* After Image Upload */}
             <div>
               <label className="block text-sm font-medium mb-2 text-gray-900">
-                Зображення "Після" * (до 4 зображень)
+                Зображення &quot;Після&quot; * (до 4 зображень)
               </label>
               <input
                 type="file"
