@@ -77,13 +77,13 @@ export default function AdminBookingsPage() {
               <tr key={booking.bookingId}>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div>
-                    <div className="font-medium">{booking.clientName || (booking.client as any)?.name || 'N/A'}</div>
-                    <div className="text-sm text-gray-500">{booking.clientEmail || (booking.client as any)?.email}</div>
-                    <div className="text-sm text-gray-500">{booking.clientPhone || (booking.client as any)?.phone}</div>
+                    <div className="font-medium">{booking.clientName || booking.client?.name || 'N/A'}</div>
+                    <div className="text-sm text-gray-500">{booking.clientEmail || booking.client?.email}</div>
+                    <div className="text-sm text-gray-500">{booking.clientPhone || booking.client?.phone}</div>
                   </div>
                 </td>
                 <td className="px-6 py-4">
-                  <div className="font-medium">{(booking.service as any)?.name || 'N/A'}</div>
+                  <div className="font-medium">{booking.service?.name || 'N/A'}</div>
                   {booking.vehicleMake && booking.vehicleModel && (
                     <div className="text-sm text-gray-500">
                       {booking.vehicleMake} {booking.vehicleModel}

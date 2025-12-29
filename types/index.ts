@@ -25,6 +25,11 @@ export interface Booking {
   clientEmail: string | null
   clientPhone: string | null
   service?: Service
+  client?: {
+    name: string
+    email: string
+    phone: string | null
+  }
 }
 
 export interface GalleryImage {
