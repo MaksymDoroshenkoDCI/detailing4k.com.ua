@@ -2,6 +2,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { prisma } from '@/lib/prisma'
 
+export const dynamic = 'force-dynamic'
+
 export default async function Home() {
   const services = await prisma.service.findMany({
     take: 6,
