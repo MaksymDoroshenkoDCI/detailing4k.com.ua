@@ -138,7 +138,7 @@ function BookingForm() {
             value={selectedDate}
             onChange={(e) => setSelectedDate(e.target.value)}
             min={minDate}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900 outline-none"
             required
           />
         </div>
@@ -153,11 +153,10 @@ function BookingForm() {
                   key={slot}
                   type="button"
                   onClick={() => setSelectedTime(slot)}
-                  className={`px-4 py-2 rounded-lg border transition-colors ${
-                    selectedTime === slot
-                      ? 'bg-primary-600 text-white border-primary-600'
+                  className={`px-4 py-2 rounded-lg border transition-colors font-medium ${selectedTime === slot
+                      ? 'bg-primary-500 text-black border-primary-500'
                       : 'bg-white border-gray-300 hover:border-primary-500 text-gray-900'
-                  }`}
+                    }`}
                 >
                   {slot}
                 </button>
@@ -169,7 +168,7 @@ function BookingForm() {
         {/* Client Information */}
         <div className="border-t pt-6">
           <h3 className="text-lg font-semibold mb-4 text-gray-900">Ваші дані</h3>
-          
+
           <div className="grid md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium mb-2 text-gray-900">Ім'я *</label>
@@ -225,7 +224,7 @@ function BookingForm() {
         <button
           type="submit"
           disabled={loading || !selectedService || !selectedDate || !selectedTime}
-          className="w-full bg-primary-600 text-white py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+          className="w-full bg-primary-500 text-black py-3 rounded-lg font-bold hover:bg-primary-400 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed uppercase tracking-wider"
         >
           {loading ? 'Обробка...' : 'Підтвердити бронювання'}
         </button>

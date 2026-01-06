@@ -67,7 +67,7 @@ export default function ServicesPage() {
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2 text-gray-900">{service.name}</h3>
                 {service.category && (
-                  <span className="text-sm text-primary-600 mb-2 inline-block">
+                  <span className="text-sm text-primary-600 font-bold mb-2 inline-block">
                     {service.category.name}
                   </span>
                 )}
@@ -76,18 +76,18 @@ export default function ServicesPage() {
                 </p>
                 <div className="flex justify-between items-center">
                   <div>
-                    <p className="text-2xl font-bold text-primary-600">
+                    <p className="text-2xl font-bold text-gray-900">
                       {Number(service.price).toLocaleString('uk-UA')} ₴
                     </p>
                     <p className="text-sm text-gray-500">
-                      {service.durationMinutes >= 60 
-                        ? `${(service.durationMinutes / 60).toFixed(1)} год` 
+                      {service.durationMinutes >= 60
+                        ? `${(service.durationMinutes / 60).toFixed(1)} год`
                         : `${service.durationMinutes} хв`}
                     </p>
                   </div>
                   <Link
                     href={`/booking?serviceId=${service.serviceId}`}
-                    className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
+                    className="bg-primary-500 text-black px-4 py-2 rounded-lg hover:bg-primary-400 transition-colors font-semibold"
                   >
                     Записатися
                   </Link>

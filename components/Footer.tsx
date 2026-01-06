@@ -6,47 +6,62 @@ export default function Footer() {
       <div className="container mx-auto max-w-6xl">
         <div className="grid md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-xl font-bold mb-4">Detailing 4K</h3>
+            <h3 className="text-xl font-bold mb-4 text-primary-500">Detailing 4K</h3>
             <p className="text-gray-400">
               Професійний авто детейлінг у Києві. Відновлюємо первозданний вигляд вашого автомобіля.
             </p>
           </div>
           <div>
-            <h4 className="font-semibold mb-4">Навігація</h4>
+            <h4 className="font-semibold mb-4 text-white">Навігація</h4>
             <ul className="space-y-2 text-gray-400">
-              <li><Link href="/" className="hover:text-white transition-colors">Головна</Link></li>
-              <li><Link href="/services" className="hover:text-white transition-colors">Послуги</Link></li>
+              <li><Link href="/" className="hover:text-primary-500 transition-colors">Головна</Link></li>
+              <li><Link href="/services" className="hover:text-primary-500 transition-colors">Послуги</Link></li>
               <li><Link href="/gallery" className="hover:text-white transition-colors">Галерея</Link></li>
-              <li><Link href="/testimonials" className="hover:text-white transition-colors">Відгуки</Link></li>
+              <li><Link href="/testimonials" className="hover:text-primary-500 transition-colors">Відгуки</Link></li>
             </ul>
           </div>
           <div>
-            <h4 className="font-semibold mb-4">Контакти</h4>
+            <h4 className="font-semibold mb-4 text-white">Контакти</h4>
             <ul className="space-y-2 text-gray-400">
-              <li>Київ, Україна</li>
+              <li>Брожка 38/58, Київ, Україна</li>
               <li>
-                <a href="tel:+380XXXXXXXXX" className="hover:text-white transition-colors">
-                  +380 XX XXX XX XX
+                <a href="tel:+380989946178" className="hover:text-primary-500 transition-colors">
+                  098 994 6178
                 </a>
               </li>
               <li>
-                <a href="mailto:info@detailing4k.com" className="hover:text-white transition-colors">
-                  info@detailing4k.com
+                <a href="tel:+380681670042" className="hover:text-primary-500 transition-colors">
+                  068 167 0042
                 </a>
               </li>
             </ul>
           </div>
           <div>
-            <h4 className="font-semibold mb-4">Соціальні мережі</h4>
-            <div className="flex gap-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                Facebook
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+            <h4 className="font-semibold mb-4 text-white">Соціальні мережі</h4>
+            <div className="flex flex-col gap-2">
+              <a
+                href="https://www.instagram.com/_detailing_4k/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-primary-500 transition-colors font-bold"
+              >
                 Instagram
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                Telegram
+              <a
+                href="https://www.facebook.com/detailingcenter4k/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-primary-500 transition-colors font-bold"
+              >
+                Facebook
+              </a>
+              <a
+                href="https://www.youtube.com/channel/UCAkAlWXl8pWklmPEQSROAIg/videos?view=0&sort=da"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-primary-500 transition-colors font-bold"
+              >
+                YouTube
               </a>
             </div>
           </div>

@@ -77,7 +77,7 @@ export default function TestimonialsPage() {
       <div className="text-center mb-8">
         <button
           onClick={() => setShowForm(!showForm)}
-          className="bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors"
+          className="bg-primary-500 text-black px-6 py-2 rounded-lg font-semibold hover:bg-primary-400 transition-colors"
         >
           {showForm ? 'Сховати форму' : 'Залишити відгук'}
         </button>
@@ -124,7 +124,7 @@ export default function TestimonialsPage() {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full bg-primary-600 text-white py-2 rounded-lg hover:bg-primary-700 transition-colors disabled:bg-gray-400"
+              className="w-full bg-primary-500 text-black py-2 rounded-lg font-semibold hover:bg-primary-400 transition-colors disabled:bg-gray-400"
             >
               {submitting ? 'Відправка...' : 'Відправити відгук'}
             </button>
@@ -147,7 +147,7 @@ export default function TestimonialsPage() {
                 {testimonial.rating && (
                   <div className="flex gap-1">
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <span key={i} className="text-yellow-400">⭐</span>
+                      <span key={i} className="text-primary-500">⭐</span>
                     ))}
                   </div>
                 )}

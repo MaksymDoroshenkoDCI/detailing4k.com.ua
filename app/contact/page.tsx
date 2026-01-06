@@ -47,7 +47,7 @@ export default function ContactPage() {
         {/* Contact Form */}
         <div className="bg-white rounded-lg shadow-md p-6">
           <h2 className="text-2xl font-semibold mb-6 text-gray-900">Надіслати запит</h2>
-          
+
           {submitted ? (
             <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
               <div className="text-4xl mb-4">✅</div>
@@ -59,7 +59,7 @@ export default function ContactPage() {
               </p>
               <button
                 onClick={() => setSubmitted(false)}
-                className="mt-4 text-primary-600 hover:text-primary-700"
+                className="mt-4 text-primary-700 hover:text-primary-600 font-semibold underline"
               >
                 Відправити ще один запит
               </button>
@@ -109,7 +109,7 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full bg-primary-600 text-white py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors disabled:bg-gray-400"
+                className="w-full bg-primary-500 text-black py-3 rounded-lg font-bold hover:bg-primary-400 transition-colors disabled:bg-gray-400 uppercase tracking-wide"
               >
                 {submitting ? 'Відправка...' : 'Відправити запит'}
               </button>
@@ -130,7 +130,7 @@ export default function ContactPage() {
                 <h4 className="font-medium mb-1 text-gray-900">Телефон</h4>
                 <a
                   href="tel:+380XXXXXXXXX"
-                  className="text-primary-600 hover:text-primary-700"
+                  className="text-primary-700 hover:text-primary-600 font-semibold"
                 >
                   +380 XX XXX XX XX
                 </a>
@@ -139,7 +139,7 @@ export default function ContactPage() {
                 <h4 className="font-medium mb-1 text-gray-900">Email</h4>
                 <a
                   href="mailto:info@detailing4k.com"
-                  className="text-primary-600 hover:text-primary-700"
+                  className="text-primary-700 hover:text-primary-600 font-semibold"
                 >
                   info@detailing4k.com
                 </a>
@@ -159,7 +159,7 @@ export default function ContactPage() {
                     href="https://t.me/detailing4k"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-500 hover:text-blue-600"
+                    className="text-[#0088cc] hover:text-[#0077b5]"
                   >
                     Telegram
                   </a>

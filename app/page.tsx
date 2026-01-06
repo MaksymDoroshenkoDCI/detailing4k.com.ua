@@ -1,32 +1,73 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { prisma } from '@/lib/prisma'
 
-export default function Home() {
+export default async function Home() {
+  const services = await prisma.service.findMany({
+    take: 6,
+    orderBy: {
+      createdAt: 'desc'
+    },
+    include: {
+      category: true
+    }
+  })
+
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-primary-700 to-primary-900 text-white py-20 px-4">
-        <div className="container mx-auto max-w-6xl text-center">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+      <section className="relative min-h-[70vh] flex items-center justify-center text-white py-20 px-4 overflow-hidden">
+        {/* Background Video/Image Container */}
+        <div className="absolute inset-0 z-0 bg-black">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster="/IMG_6533.jpg"
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src="/20 sec Background.mov" type="video/quicktime" />
+            <source src="/20 sec Background.mov" type="video/mp4" />
+          </video>
+          {/* Dark Overlay covers the whole section */}
+          <div className="absolute inset-0 bg-black/60" />
+        </div>
+
+        <div className="container mx-auto max-w-6xl text-center relative z-10">
+          <h1 className="sr-only">
             Detailing 4K
           </h1>
-          <p className="text-xl md:text-2xl mb-8 text-primary-100">
+          <div className="flex justify-center mb-0">
+            <div className="relative w-[500px] h-[400px] overflow-hidden">
+              <Image
+                src="/logo-white.png"
+                alt="Detailing 4K Logo"
+                width={500}
+                height={500}
+                priority
+                className="object-cover object-top"
+              />
+            </div>
+          </div>
+
+          <p className="text-xl md:text-2xl mb-8 text-primary-400">
             Професійний авто детейлінг у Києві
           </p>
-          <p className="text-lg mb-10 text-primary-200 max-w-2xl mx-auto">
-            Відновлюємо первозданний вигляд вашого автомобіля. Полірування, керамічне покриття, 
+          <p className="text-lg mb-10 text-gray-300 max-w-2xl mx-auto">
+            Відновлюємо первозданний вигляд вашого автомобіля. Полірування, керамічне покриття,
             глибоке чищення та комплексний догляд.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link
               href="/services"
-              className="bg-white text-primary-700 px-8 py-3 rounded-lg font-semibold hover:bg-primary-50 transition-colors"
+              className="bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
             >
               Наші послуги
             </Link>
             <Link
               href="/booking"
-              className="bg-primary-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-600 transition-colors border-2 border-white"
+              className="bg-primary-500 text-black px-8 py-3 rounded-lg font-semibold hover:bg-primary-400 transition-colors"
             >
               Записатися
             </Link>
@@ -38,33 +79,42 @@ export default function Home() {
       <section className="py-16 px-4 bg-gray-50">
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">Наші послуги</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="text-4xl mb-4">✨</div>
-              <h3 className="text-xl font-semibold mb-2">Полірування</h3>
-              <p className="text-gray-600">
-                Відновлення блиску та усунення дрібних подряпин на фарбі автомобіля
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="text-4xl mb-4">🛡️</div>
-              <h3 className="text-xl font-semibold mb-2">Керамічне покриття</h3>
-              <p className="text-gray-600">
-                Довготривалий захист кузова з покращеним блиском та гідрофобними властивостями
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="text-4xl mb-4">🧹</div>
-              <h3 className="text-xl font-semibold mb-2">Глибоке чищення</h3>
-              <p className="text-gray-600">
-                Комплексне чищення салону та кузова з використанням професійних засобів
-              </p>
-            </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {services.map((service: any) => (
+              <div key={service.serviceId} className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col hover:shadow-lg transition-shadow">
+                {service.imageUrl && (
+                  <div className="h-48 bg-gray-200 relative">
+                    <img
+                      src={service.imageUrl}
+                      alt={service.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+                <div className="p-6 flex flex-col flex-grow">
+                  <h3 className="text-xl font-semibold mb-2 text-gray-900">{service.name}</h3>
+                  <p className="text-gray-600 mb-4 flex-grow line-clamp-3">
+                    {service.description}
+                  </p>
+                  <div className="flex justify-between items-center mt-4">
+                    <span className="text-lg font-bold text-gray-900">
+                      від {service.price.toString()} грн
+                    </span>
+                    <Link
+                      href={`/booking?serviceId=${service.serviceId}`}
+                      className="bg-primary-500 text-black px-4 py-2 rounded-lg hover:bg-primary-400 transition-colors font-semibold text-sm"
+                    >
+                      Записатися
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-          <div className="text-center mt-10">
+          <div className="text-center mt-12">
             <Link
               href="/services"
-              className="text-primary-600 hover:text-primary-700 font-semibold"
+              className="inline-block bg-black text-white px-8 py-3 rounded-lg font-bold hover:bg-gray-900 transition-colors"
             >
               Переглянути всі послуги →
             </Link>
@@ -111,13 +161,13 @@ export default function Home() {
           <div className="flex gap-4 justify-center flex-wrap">
             <Link
               href="/booking"
-              className="bg-white text-primary-700 px-8 py-3 rounded-lg font-semibold hover:bg-primary-50 transition-colors"
+              className="bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
             >
               Записатися онлайн
             </Link>
             <Link
               href="/contact"
-              className="bg-primary-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors border-2 border-white"
+              className="bg-black text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-900 transition-colors border-2 border-white"
             >
               Зв&apos;язатися з нами
             </Link>

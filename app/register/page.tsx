@@ -118,7 +118,7 @@ export default function RegisterPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-primary-600 text-white py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors disabled:bg-gray-400"
+            className="w-full bg-primary-500 text-black py-3 rounded-lg font-bold hover:bg-primary-400 transition-colors disabled:bg-gray-400 uppercase tracking-wide"
           >
             {loading ? 'Реєстрація...' : 'Зареєструватися'}
           </button>
@@ -127,7 +127,7 @@ export default function RegisterPage() {
         <div className="mt-6 text-center">
           <p className="text-gray-600">
             Вже є акаунт?{' '}
-            <Link href="/login" className="text-primary-600 hover:text-primary-700">
+            <Link href="/login" className="text-primary-700 hover:text-primary-600 font-bold underline">
               Увійти
             </Link>
           </p>

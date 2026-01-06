@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 
@@ -34,11 +35,18 @@ export default function Navbar() {
   ]
 
   return (
-    <nav className="bg-white shadow-md sticky top-0 z-50">
+    <nav className="bg-[#1a1a1a] shadow-md sticky top-0 z-50 border-b border-gray-800">
       <div className="container mx-auto max-w-6xl px-4">
         <div className="flex justify-between items-center h-16">
-          <Link href="/" className="text-2xl font-bold text-primary-700">
-            Detailing 4K
+          <Link href="/" className="flex items-center text-white">
+            <Image
+              src="/Logo 4K 224-73.png"
+              alt="Detailing 4K Logo"
+              width={86}
+              height={28}
+              className="h-auto"
+            />
+            <span className="sr-only">Detailing 4K</span>
           </Link>
 
           {/* Desktop Menu */}
@@ -47,9 +55,8 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`hover:text-primary-600 transition-colors ${
-                  pathname === link.href ? 'text-primary-600 font-semibold' : 'text-gray-700'
-                }`}
+                className={`hover:text-primary-500 transition-colors ${pathname === link.href ? 'text-primary-500 font-semibold' : 'text-gray-300'
+                  }`}
               >
                 {link.label}
               </Link>
@@ -59,21 +66,21 @@ export default function Navbar() {
                 {user.role ? (
                   <Link
                     href="/admin"
-                    className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
+                    className="bg-primary-500 text-black px-4 py-2 rounded-lg hover:bg-primary-400 transition-colors font-semibold"
                   >
                     Адмін панель
                   </Link>
                 ) : (
                   <Link
                     href="/account"
-                    className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
+                    className="bg-primary-500 text-black px-4 py-2 rounded-lg hover:bg-primary-400 transition-colors font-semibold"
                   >
                     Мій кабінет
                   </Link>
                 )}
                 <button
                   onClick={handleLogout}
-                  className="text-gray-700 hover:text-primary-600 transition-colors"
+                  className="text-gray-300 hover:text-primary-500 transition-colors"
                 >
                   Вийти
                 </button>
@@ -82,13 +89,13 @@ export default function Navbar() {
               <>
                 <Link
                   href="/login"
-                  className="text-gray-700 hover:text-primary-600 transition-colors"
+                  className="text-gray-300 hover:text-primary-500 transition-colors"
                 >
                   Увійти
                 </Link>
                 <Link
                   href="/register"
-                  className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
+                  className="bg-primary-500 text-black px-4 py-2 rounded-lg hover:bg-primary-400 transition-colors font-semibold"
                 >
                   Реєстрація
                 </Link>
@@ -114,9 +121,8 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`block py-2 ${
-                  pathname === link.href ? 'text-primary-600 font-semibold' : 'text-gray-700'
-                }`}
+                className={`block py-2 ${pathname === link.href ? 'text-primary-600 font-semibold' : 'text-gray-700'
+                  }`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 {link.label}

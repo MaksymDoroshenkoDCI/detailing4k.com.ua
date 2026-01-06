@@ -52,7 +52,7 @@ export default function GalleryPage() {
           {images.map((image) => {
             // Парсимо JSON якщо це масив, інакше використовуємо як єдиний рядок
             let afterUrls: string[] = []
-            
+
             try {
               afterUrls = JSON.parse(image.afterImageUrl)
               if (!Array.isArray(afterUrls)) afterUrls = [image.afterImageUrl]
@@ -61,42 +61,42 @@ export default function GalleryPage() {
             }
 
             return (
-            <div
-              key={image.imageId}
-              className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow"
-              onClick={() => setSelectedImage(image)}
-            >
-              <div className="relative h-64">
-                <div className="grid grid-cols-2 gap-1 h-full">
-                  {afterUrls.slice(0, 4).map((url, idx) => (
-                    <img
-                      key={idx}
-                      src={url}
-                      alt={`${image.title || 'After'} ${idx + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  ))}
+              <div
+                key={image.imageId}
+                className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow"
+                onClick={() => setSelectedImage(image)}
+              >
+                <div className="relative h-64">
+                  <div className="grid grid-cols-2 gap-1 h-full">
+                    {afterUrls.slice(0, 4).map((url, idx) => (
+                      <img
+                        key={idx}
+                        src={url}
+                        alt={`${image.title || 'After'} ${idx + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    ))}
+                  </div>
+                  <div className="absolute top-2 left-2 bg-primary-500 text-black px-2 py-1 rounded text-sm font-bold">
+                    Після
+                  </div>
                 </div>
-                <div className="absolute top-2 left-2 bg-primary-600 text-white px-2 py-1 rounded text-sm">
-                  Після
+                <div className="p-4">
+                  {image.title && (
+                    <h3 className="font-semibold mb-1 text-gray-900">{image.title}</h3>
+                  )}
+                  {image.service && (
+                    <p className="text-sm text-primary-600 font-bold mb-2">
+                      {image.service.name}
+                    </p>
+                  )}
+                  {image.description && (
+                    <p className="text-sm text-gray-600 line-clamp-2">
+                      {image.description}
+                    </p>
+                  )}
                 </div>
               </div>
-              <div className="p-4">
-                {image.title && (
-                  <h3 className="font-semibold mb-1 text-gray-900">{image.title}</h3>
-                )}
-                {image.service && (
-                  <p className="text-sm text-primary-600 mb-2">
-                    {image.service.name}
-                  </p>
-                )}
-                {image.description && (
-                  <p className="text-sm text-gray-600 line-clamp-2">
-                    {image.description}
-                  </p>
-                )}
-              </div>
-            </div>
             )
           })}
         </div>
