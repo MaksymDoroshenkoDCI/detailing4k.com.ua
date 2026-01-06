@@ -17,7 +17,7 @@ export default async function Home() {
     <div className="flex flex-col">
       {/* Hero Section */}
       <section className="relative min-h-[70vh] flex items-center justify-center text-white py-20 px-4 overflow-hidden">
-        {/* Background Video/Image Container */}
+        {/* Background Video Container */}
         <div className="absolute inset-0 z-0 bg-black">
           <video
             autoPlay
@@ -27,8 +27,8 @@ export default async function Home() {
             poster="/IMG_6533.jpg"
             className="absolute inset-0 w-full h-full object-cover"
           >
-            <source src="/20 sec Background.mov" type="video/quicktime" />
-            <source src="/20 sec Background.mov" type="video/mp4" />
+            <source src="/15 sec Background.mov" type="video/quicktime" />
+            <source src="/15 sec Background.mov" type="video/mp4" />
           </video>
           {/* Dark Overlay covers the whole section */}
           <div className="absolute inset-0 bg-black/60" />
