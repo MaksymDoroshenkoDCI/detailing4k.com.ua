@@ -124,16 +124,24 @@ export default function ContactPage() {
             <div className="space-y-4">
               <div>
                 <h4 className="font-medium mb-1 text-gray-900">Адреса</h4>
-                <p className="text-gray-600">Київ, Україна</p>
+                <p className="text-gray-600">Брожка 38/58, Київ, Україна</p>
               </div>
               <div>
                 <h4 className="font-medium mb-1 text-gray-900">Телефон</h4>
-                <a
-                  href="tel:+380XXXXXXXXX"
-                  className="text-primary-700 hover:text-primary-600 font-semibold"
-                >
-                  +380 XX XXX XX XX
-                </a>
+                <div className="flex flex-col gap-1">
+                  <a
+                    href="tel:+380989946178"
+                    className="text-primary-700 hover:text-primary-600 font-semibold"
+                  >
+                    098 994 6178
+                  </a>
+                  <a
+                    href="tel:+380681670042"
+                    className="text-primary-700 hover:text-primary-600 font-semibold"
+                  >
+                    068 167 0042
+                  </a>
+                </div>
               </div>
               <div>
                 <h4 className="font-medium mb-1 text-gray-900">Email</h4>
@@ -177,14 +185,31 @@ export default function ContactPage() {
             </div>
           </div>
 
-          {/* Google Maps placeholder */}
+          {/* Google Maps */}
           <div className="bg-white rounded-lg shadow-md p-6">
             <h3 className="text-xl font-semibold mb-4 text-gray-900">Як нас знайти</h3>
-            <div className="h-64 bg-gray-200 rounded-lg flex items-center justify-center">
-              <p className="text-gray-500">Карта Google Maps</p>
-              <p className="text-sm text-gray-400 ml-2">
-                (Потрібен NEXT_PUBLIC_GOOGLE_MAPS_API_KEY)
-              </p>
+            <div className="h-64 bg-gray-200 rounded-lg overflow-hidden relative">
+              <iframe
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                scrolling="no"
+                marginHeight={0}
+                marginWidth={0}
+                src="https://maps.google.com/maps?q=Брожка+38/58,+Київ&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                title="Detailing 4K Location"
+                className="absolute inset-0"
+              ></iframe>
+            </div>
+            <div className="mt-4 text-center">
+              <a
+                href="https://maps.app.goo.gl/zHhKLhSyewB5mqnF9"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-primary-500 text-black px-6 py-2 rounded-lg font-semibold hover:bg-primary-400 transition-colors"
+              >
+                Відкрити в Google Maps
+              </a>
             </div>
           </div>
         </div>
