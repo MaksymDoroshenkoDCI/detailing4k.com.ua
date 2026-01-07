@@ -9,6 +9,9 @@ const inter = Inter({ subsets: ['latin', 'cyrillic'] })
 export const metadata: Metadata = {
   title: 'Detailing 4K - Авто детейлінг студія в Києві',
   description: 'Професійний авто детейлінг: полірування, керамічне покриття, глибоке чищення та комплексний догляд за автомобілем',
+  icons: {
+    icon: '/favicon.png',
+  },
 }
 
 export default function RootLayout({
