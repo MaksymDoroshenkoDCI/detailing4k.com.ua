@@ -38,8 +38,8 @@ export default function ContactPage() {
 
   return (
     <div className="container mx-auto max-w-4xl px-4 py-16">
-      <h1 className="text-4xl font-bold mb-4 text-center text-gray-900">Контакти</h1>
-      <p className="text-center text-gray-600 mb-12">
+      <h1 className="text-4xl font-bold mb-4 text-center text-white">Контакти</h1>
+      <p className="text-center text-gray-300 mb-12">
         Зв'яжіться з нами для консультації або запитання
       </p>
 
