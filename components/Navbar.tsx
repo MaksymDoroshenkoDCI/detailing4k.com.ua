@@ -29,7 +29,7 @@ export default function Navbar() {
   const navLinks = [
     { href: '/', label: 'Головна' },
     { href: '/services', label: 'Послуги' },
-    { href: '/gallery', label: 'Галерея' },
+    { href: '/gallery', label: 'Галерея робіт' },
     { href: '/testimonials', label: 'Відгуки' },
     { href: '/contact', label: 'Контакти' },
   ]

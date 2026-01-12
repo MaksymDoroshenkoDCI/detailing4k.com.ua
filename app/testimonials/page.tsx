@@ -85,23 +85,23 @@ export default function TestimonialsPage() {
 
       {showForm && (
         <div className="bg-white rounded-lg shadow-md p-6 mb-12 max-w-2xl mx-auto">
-          <h2 className="text-2xl font-semibold mb-4">Залишити відгук</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-gray-900">Залишити відгук</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium mb-2">Ваше ім&apos;я (необов&apos;язково)</label>
+              <label className="block text-sm font-medium mb-2 text-gray-900">Ваше ім&apos;я (необов&apos;язково)</label>
               <input
                 type="text"
                 value={formData.clientName}
                 onChange={(e) => setFormData({ ...formData, clientName: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-2">Оцінка</label>
+              <label className="block text-sm font-medium mb-2 text-gray-900">Оцінка</label>
               <select
                 value={formData.rating}
                 onChange={(e) => setFormData({ ...formData, rating: Number(e.target.value) })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900"
               >
                 {[5, 4, 3, 2, 1].map((rating) => (
                   <option key={rating} value={rating}>
@@ -111,12 +111,12 @@ export default function TestimonialsPage() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium mb-2">Ваш відгук *</label>
+              <label className="block text-sm font-medium mb-2 text-gray-900">Ваш відгук *</label>
               <textarea
                 value={formData.text}
                 onChange={(e) => setFormData({ ...formData, text: e.target.value })}
                 rows={5}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900"
                 required
                 minLength={10}
               />
@@ -154,7 +154,7 @@ export default function TestimonialsPage() {
               </div>
               <p className="text-gray-700 mb-4 italic">&quot;{testimonial.text}&quot;</p>
               <div className="border-t pt-4">
-                <p className="font-semibold">
+                <p className="font-semibold text-gray-900">
                   {testimonial.client?.name || testimonial.clientName || 'Анонімний клієнт'}
                 </p>
                 <p className="text-sm text-gray-500">

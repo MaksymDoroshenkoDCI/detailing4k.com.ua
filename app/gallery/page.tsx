@@ -6,17 +6,15 @@ import { GalleryImage } from '@/types'
 export default function GalleryPage() {
   const [images, setImages] = useState<GalleryImage[]>([])
   const [loading, setLoading] = useState(true)
-  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null)
+  const [currentSlide, setCurrentSlide] = useState(0)
 
   useEffect(() => {
     fetch('/api/gallery')
       .then((res) => res.json())
       .then((data) => {
-        // Ensure data is an array
         if (Array.isArray(data)) {
           setImages(data)
         } else {
-          console.error('Invalid data format:', data)
           setImages([])
         }
         setLoading(false)
@@ -28,6 +26,15 @@ export default function GalleryPage() {
       })
   }, [])
 
+  // Auto-scroll carousel
+  useEffect(() => {
+    if (images.length === 0) return
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % Math.min(images.length, 5))
+    }, 5000)
+    return () => clearInterval(timer)
+  }, [images.length])
+
   if (loading) {
     return (
       <div className="container mx-auto max-w-6xl px-4 py-16 text-center">
@@ -36,62 +43,61 @@ export default function GalleryPage() {
     )
   }
 
+  // Get images for carousel (limited to first 5 or logic based on 'featured')
+  const carouselImages = images.slice(0, 5)
+
+  // Helper to check for video
+  const isVideo = (url: string) => /\.(mp4|mov|webm|ogg)$/i.test(url)
+
   return (
-    <div className="container mx-auto max-w-6xl px-4 py-16">
-      <h1 className="text-4xl font-bold mb-4 text-center">Галерея робіт</h1>
-      <p className="text-center text-gray-600 mb-12">
-        До та після - результати нашої роботи
-      </p>
+    <div className="min-h-screen bg-gray-50">
 
-      {!Array.isArray(images) || images.length === 0 ? (
-        <div className="text-center py-12">
-          <p className="text-gray-500">Галерея порожня</p>
-        </div>
-      ) : (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {images.map((image) => {
-            // Парсимо JSON якщо це масив, інакше використовуємо як єдиний рядок
-            let afterUrls: string[] = []
+      {/* Hero Carousel Section */}
+      {carouselImages.length > 0 && (
+        <div className="relative h-[60vh] w-full overflow-hidden bg-black">
+          {carouselImages.map((image, index) => {
+            // Get first valid media for hero background
+            let heroMedia = ''
+            if (image.images && image.images.length > 0) heroMedia = image.images[0]
+            else if (image.afterImageUrl) heroMedia = image.afterImageUrl // Legacy fallback
+            else if (image.beforeImageUrl) heroMedia = image.beforeImageUrl
 
-            try {
-              afterUrls = JSON.parse(image.afterImageUrl)
-              if (!Array.isArray(afterUrls)) afterUrls = [image.afterImageUrl]
-            } catch {
-              afterUrls = [image.afterImageUrl]
-            }
+            const mediaIsVideo = isVideo(heroMedia)
 
             return (
               <div
                 key={image.imageId}
-                className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow"
-                onClick={() => setSelectedImage(image)}
+                className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentSlide ? 'opacity-100' : 'opacity-0'
+                  }`}
               >
-                <div className="relative h-64">
-                  <div className="grid grid-cols-2 gap-1 h-full">
-                    {afterUrls.slice(0, 4).map((url, idx) => (
-                      <img
-                        key={idx}
-                        src={url}
-                        alt={`${image.title || 'After'} ${idx + 1}`}
-                        className="w-full h-full object-cover"
+                {heroMedia && (
+                  <>
+                    {mediaIsVideo ? (
+                      <video
+                        src={heroMedia}
+                        className="w-full h-full object-cover opacity-60"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
                       />
-                    ))}
-                  </div>
-                  <div className="absolute top-2 left-2 bg-primary-500 text-black px-2 py-1 rounded text-sm font-bold">
-                    Після
-                  </div>
-                </div>
-                <div className="p-4">
-                  {image.title && (
-                    <h3 className="font-semibold mb-1 text-gray-900">{image.title}</h3>
-                  )}
-                  {image.service && (
-                    <p className="text-sm text-primary-600 font-bold mb-2">
-                      {image.service.name}
-                    </p>
-                  )}
+                    ) : (
+                      <img
+                        src={heroMedia}
+                        alt={image.title || 'Work'}
+                        className="w-full h-full object-cover opacity-60"
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent" />
+                  </>
+                )}
+
+                <div className="absolute bottom-0 left-0 right-0 p-8 md:p-16 text-white max-w-6xl mx-auto">
+                  <h2 className="text-4xl md:text-5xl font-bold mb-4 drop-shadow-md">
+                    {image.title || 'Наші роботи'}
+                  </h2>
                   {image.description && (
-                    <p className="text-sm text-gray-600 line-clamp-2">
+                    <p className="text-lg md:text-xl opacity-90 max-w-2xl drop-shadow-sm">
                       {image.description}
                     </p>
                   )}
@@ -99,84 +105,157 @@ export default function GalleryPage() {
               </div>
             )
           })}
-        </div>
-      )}
 
-      {/* Lightbox Modal */}
-      {selectedImage && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4"
-          onClick={() => setSelectedImage(null)}
-        >
-          <div className="max-w-6xl w-full">
-            <button
-              onClick={() => setSelectedImage(null)}
-              className="absolute top-4 right-4 text-white text-2xl hover:text-gray-300"
-            >
-              ✕
-            </button>
-            <div className="grid md:grid-cols-2 gap-4">
-              <div>
-                <h3 className="text-white mb-2 text-center">До</h3>
-                <div className="grid grid-cols-2 gap-2">
-                  {(() => {
-                    let beforeUrls: string[] = []
-                    try {
-                      beforeUrls = JSON.parse(selectedImage.beforeImageUrl)
-                      if (!Array.isArray(beforeUrls)) beforeUrls = [selectedImage.beforeImageUrl]
-                    } catch {
-                      beforeUrls = [selectedImage.beforeImageUrl]
-                    }
-                    return beforeUrls.map((url, idx) => (
-                      <img
-                        key={idx}
-                        src={url}
-                        alt={`Before ${idx + 1}`}
-                        className="w-full h-auto rounded"
-                      />
-                    ))
-                  })()}
-                </div>
-              </div>
-              <div>
-                <h3 className="text-white mb-2 text-center">Після</h3>
-                <div className="grid grid-cols-2 gap-2">
-                  {(() => {
-                    let afterUrls: string[] = []
-                    try {
-                      afterUrls = JSON.parse(selectedImage.afterImageUrl)
-                      if (!Array.isArray(afterUrls)) afterUrls = [selectedImage.afterImageUrl]
-                    } catch {
-                      afterUrls = [selectedImage.afterImageUrl]
-                    }
-                    return afterUrls.map((url, idx) => (
-                      <img
-                        key={idx}
-                        src={url}
-                        alt={`After ${idx + 1}`}
-                        className="w-full h-auto rounded"
-                      />
-                    ))
-                  })()}
-                </div>
-              </div>
-            </div>
-            {selectedImage.title && (
-              <h2 className="text-white text-xl font-semibold mt-4 text-center">
-                {selectedImage.title}
-              </h2>
-            )}
-            {selectedImage.description && (
-              <p className="text-white text-center mt-2">
-                {selectedImage.description}
-              </p>
-            )}
+          {/* Carousel Controls */}
+          <div className="absolute bottom-8 right-8 flex gap-2">
+            {carouselImages.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentSlide(idx)}
+                className={`w-3 h-3 rounded-full transition-all ${idx === currentSlide ? 'bg-primary-500 w-8' : 'bg-white/50 hover:bg-white'
+                  }`}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
           </div>
         </div>
       )}
+
+      {/* Main Content */}
+      <div className="container mx-auto max-w-6xl px-4 py-16">
+        <div className="text-center mb-16">
+          <h1 className="text-4xl font-bold mb-4 text-gray-900">Наші роботи</h1>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            Ознайомтесь з прикладами наших робіт. Ми пишаємося кожним проектом та приділяємо увагу найменшим деталям.
+          </p>
+        </div>
+
+        {!Array.isArray(images) || images.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-gray-500">Галерея порожня</p>
+          </div>
+        ) : (
+          <div className="space-y-24">
+            {images.map((image, index) => {
+              // Get all images for this work item
+              let displayImages: string[] = []
+              if (image.images && image.images.length > 0) {
+                displayImages = image.images
+              } else {
+                // Fallback
+                try {
+                  const b = image.beforeImageUrl ? JSON.parse(image.beforeImageUrl) : []
+                  const a = image.afterImageUrl ? JSON.parse(image.afterImageUrl) : []
+                  displayImages = [...(Array.isArray(b) ? b : [image.beforeImageUrl]), ...(Array.isArray(a) ? a : [image.afterImageUrl])].filter(Boolean)
+                } catch {
+                  if (image.beforeImageUrl) displayImages.push(image.beforeImageUrl)
+                }
+              }
+
+              // Apply alternating layout
+              const isEven = index % 2 === 0
+
+              return (
+                <div key={image.imageId} className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 lg:gap-16 items-start`}>
+
+                  {/* Text Content */}
+                  <div className="lg:w-1/3 pt-4">
+                    <h2 className="text-2xl font-bold mb-4 text-gray-900 border-l-4 border-primary-500 pl-4">
+                      {image.title || 'Проект Detailing'}
+                    </h2>
+                    {image.service && (
+                      <div className="mb-4 inline-block bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm font-medium">
+                        {image.service.name}
+                      </div>
+                    )}
+                    {image.description && (
+                      <p className="text-gray-600 leading-relaxed mb-6">
+                        {image.description}
+                      </p>
+                    )}
+                    <button
+                      className="text-primary-600 font-semibold hover:text-primary-700 inline-flex items-center gap-2 group"
+                      onClick={() => {/* Maybe open lightbox or details */ }}
+                    >
+                      Дивитись деталі
+                      <span className="group-hover:translate-x-1 transition-transform">→</span>
+                    </button>
+                  </div>
+
+                  <div className="lg:w-2/3 w-full">
+                    {displayImages.length === 0 ? (
+                      <div className="bg-gray-200 rounded-xl h-64 flex items-center justify-center text-gray-400">
+                        Немає фото
+                      </div>
+                    ) : (
+                      // Responsive grid: 2 cols on mobile, 4 on tablet, 6 on desktop
+                      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 auto-rows-[200px]">
+                        {displayImages.slice(0, 5).map((mediaUrl, idx) => {
+                          const isVid = isVideo(mediaUrl)
+
+                          // Default spans (mobile friendly)
+                          let colSpan = 'col-span-1'
+                          let rowSpan = 'row-span-1'
+                          let mdColSpan = 'md:col-span-2'
+                          let lgColSpan = 'lg:col-span-2'
+
+                          // Logic for different image counts
+                          if (displayImages.length === 1) {
+                            colSpan = 'col-span-2'
+                            mdColSpan = 'md:col-span-4'
+                            lgColSpan = 'lg:col-span-6'
+                            rowSpan = 'row-span-2'
+                          } else if (displayImages.length === 2) {
+                            // Two large images side-by-side on desktop, stacked on mobile if wanted, or side-by-side
+                            colSpan = 'col-span-1'
+                            mdColSpan = 'md:col-span-2'
+                            lgColSpan = 'lg:col-span-3'
+                            rowSpan = 'row-span-2'
+                          } else if (displayImages.length >= 3) {
+                            if (idx === 0) {
+                              // First image is main feature
+                              colSpan = 'col-span-2'
+                              mdColSpan = 'md:col-span-2'
+                              lgColSpan = 'lg:col-span-4'
+                              rowSpan = 'row-span-2'
+                            } else {
+                              // Others are smaller
+                              colSpan = 'col-span-1'
+                              mdColSpan = 'md:col-span-1'
+                              lgColSpan = 'lg:col-span-2'
+                              rowSpan = 'row-span-1'
+                            }
+                          }
+
+                          return (
+                            <div
+                              key={idx}
+                              className={`${colSpan} ${mdColSpan} ${lgColSpan} ${rowSpan} relative group overflow-hidden rounded-xl bg-gray-100 shadow-sm`}
+                            >
+                              {isVid ? (
+                                <video src={mediaUrl} className="w-full h-full object-cover" muted autoPlay loop playsInline />
+                              ) : (
+                                <img src={mediaUrl} alt="" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                              )}
+
+                              {/* Show count overlay on the last item if there are more */}
+                              {idx === 4 && displayImages.length > 5 && (
+                                <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center text-white text-2xl font-bold cursor-pointer hover:bg-opacity-50 transition-all backdrop-blur-sm">
+                                  +{displayImages.length - 5}
+                                </div>
+                              )}
+                            </div>
+                          )
+                        })}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        )}
+      </div>
     </div>
   )
 }
-
-
-

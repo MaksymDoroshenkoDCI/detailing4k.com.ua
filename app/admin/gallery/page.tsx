@@ -12,14 +12,10 @@ export default function AdminGalleryPage() {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    beforeImageUrl: '',
-    afterImageUrl: '',
+    images: [] as string[],
     serviceId: '',
   })
-  const [uploadingBefore, setUploadingBefore] = useState(false)
-  const [uploadingAfter, setUploadingAfter] = useState(false)
-  const [beforePreview, setBeforePreview] = useState<string[]>([])
-  const [afterPreview, setAfterPreview] = useState<string[]>([])
+  const [uploading, setUploading] = useState(false)
   const [editingImage, setEditingImage] = useState<GalleryImage | null>(null)
 
   useEffect(() => {
@@ -95,22 +91,18 @@ export default function AdminGalleryPage() {
     })
   }
 
-  const handleImageUpload = async (
-    files: FileList | null,
-    type: 'before' | 'after'
-  ) => {
+  const handleImageUpload = async (files: FileList | null) => {
     if (!files || files.length === 0) return
 
-    if (files.length > 4) {
-      alert('Максимум 4 зображення')
+    const currentCount = formData.images.length
+    const newCount = files.length
+
+    if (currentCount + newCount > 10) {
+      alert(`Максимум 10 зображень. Ви вже маєте ${currentCount}, намагаєтесь додати ${newCount}.`)
       return
     }
 
-    if (type === 'before') {
-      setUploadingBefore(true)
-    } else {
-      setUploadingAfter(true)
-    }
+    setUploading(true)
 
     try {
       const uploadPromises = Array.from(files).map(async (file, index) => {
@@ -122,12 +114,12 @@ export default function AdminGalleryPage() {
             console.log(`Зображення ${index + 1} стиснуто: ${(file.size / 1024 / 1024).toFixed(2)}MB -> ${(fileToUpload.size / 1024 / 1024).toFixed(2)}MB`)
           }
 
-          const formData = new FormData()
-          formData.append('file', fileToUpload)
+          const uploadFormData = new FormData()
+          uploadFormData.append('file', fileToUpload)
 
           const response = await fetch('/api/upload', {
             method: 'POST',
-            body: formData,
+            body: uploadFormData,
           })
 
           if (!response.ok) {
@@ -147,9 +139,9 @@ export default function AdminGalleryPage() {
       })
 
       const urls = await Promise.all(uploadPromises)
-      
+
       // Фільтруємо успішно завантажені URL
-      const successfulUrls = urls.filter(url => url && url.length > 0)
+      const successfulUrls = urls.filter(url => url && url.length > 0) as string[]
 
       if (successfulUrls.length === 0) {
         alert('Не вдалося завантажити жодне зображення. Перевірте формат та розмір файлів.')
@@ -160,120 +152,67 @@ export default function AdminGalleryPage() {
         alert(`Успішно завантажено ${successfulUrls.length} з ${urls.length} зображень`)
       }
 
-      if (type === 'before') {
-        const currentUrls = beforePreview
-        const newUrls = [...currentUrls, ...successfulUrls].slice(0, 4) // Максимум 4
-        setBeforePreview(newUrls)
-        setFormData((prev) => ({ ...prev, beforeImageUrl: JSON.stringify(newUrls) }))
-      } else {
-        const currentUrls = afterPreview
-        const newUrls = [...currentUrls, ...successfulUrls].slice(0, 4) // Максимум 4
-        setAfterPreview(newUrls)
-        setFormData((prev) => ({ ...prev, afterImageUrl: JSON.stringify(newUrls) }))
-      }
+      setFormData((prev) => ({
+        ...prev,
+        images: [...prev.images, ...successfulUrls].slice(0, 10)
+      }))
+
     } catch (error) {
       console.error('Error uploading images:', error)
       const errorMessage = error instanceof Error ? error.message : 'Невідома помилка'
       alert(`Помилка при завантаженні зображення: ${errorMessage}`)
     } finally {
-      if (type === 'before') {
-        setUploadingBefore(false)
-      } else {
-        setUploadingAfter(false)
-      }
+      setUploading(false)
     }
   }
 
-  const removeImage = (index: number, type: 'before' | 'after') => {
-    if (type === 'before') {
-      const newUrls = beforePreview.filter((_, i) => i !== index)
-      setBeforePreview(newUrls)
-      setFormData((prev) => ({ ...prev, beforeImageUrl: JSON.stringify(newUrls) }))
-    } else {
-      const newUrls = afterPreview.filter((_, i) => i !== index)
-      setAfterPreview(newUrls)
-      setFormData((prev) => ({ ...prev, afterImageUrl: JSON.stringify(newUrls) }))
-    }
+  const removeImage = (index: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      images: prev.images.filter((_, i) => i !== index)
+    }))
   }
 
   const handleEdit = (image: GalleryImage) => {
     setEditingImage(image)
-    
-    // Парсимо JSON якщо це масив, інакше використовуємо як єдиний рядок
-    let beforeUrls: string[] = []
-    let afterUrls: string[] = []
-    
-    try {
-      beforeUrls = JSON.parse(image.beforeImageUrl)
-      if (!Array.isArray(beforeUrls)) beforeUrls = [image.beforeImageUrl]
-    } catch {
-      beforeUrls = [image.beforeImageUrl]
-    }
-    
-    try {
-      afterUrls = JSON.parse(image.afterImageUrl)
-      if (!Array.isArray(afterUrls)) afterUrls = [image.afterImageUrl]
-    } catch {
-      afterUrls = [image.afterImageUrl]
+
+    let imageUrls: string[] = []
+
+    // Спробуємо отримати зображення з нового поля images або fallback на before/after
+    if (image.images && image.images.length > 0) {
+      imageUrls = [...image.images]
+    } else {
+      // Legacy support
+      try {
+        const before = image.beforeImageUrl ? JSON.parse(image.beforeImageUrl) : []
+        const after = image.afterImageUrl ? JSON.parse(image.afterImageUrl) : []
+        // Treat validation/parsing loosely
+        const bUrls = Array.isArray(before) ? before : (image.beforeImageUrl ? [image.beforeImageUrl] : [])
+        const aUrls = Array.isArray(after) ? after : (image.afterImageUrl ? [image.afterImageUrl] : [])
+        imageUrls = [...bUrls, ...aUrls]
+      } catch {
+        // Fallback if parsing fails but strings exist
+        if (image.beforeImageUrl) imageUrls.push(image.beforeImageUrl)
+        if (image.afterImageUrl) imageUrls.push(image.afterImageUrl)
+      }
     }
 
     setFormData({
       title: image.title || '',
       description: image.description || '',
-      beforeImageUrl: JSON.stringify(beforeUrls),
-      afterImageUrl: JSON.stringify(afterUrls),
+      images: imageUrls,
       serviceId: image.serviceId || '',
     })
-    setBeforePreview(beforeUrls)
-    setAfterPreview(afterUrls)
     setShowForm(true)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    console.log('Відправка форми:', { beforePreview, afterPreview, formData })
-
-    // Перевіряємо, що є завантажені зображення
-    // Використовуємо preview як основний джерело, оскільки він завжди актуальний після завантаження
-    let beforeUrls: string[] = [...beforePreview]
-    let afterUrls: string[] = [...afterPreview]
-
-    // Якщо немає в preview, пробуємо розпарсити з formData (на випадок редагування)
-    if (beforeUrls.length === 0 && formData.beforeImageUrl) {
-      try {
-        const parsed = JSON.parse(formData.beforeImageUrl)
-        beforeUrls = Array.isArray(parsed) ? parsed : [formData.beforeImageUrl]
-      } catch {
-        beforeUrls = [formData.beforeImageUrl]
-      }
-    }
-
-    if (afterUrls.length === 0 && formData.afterImageUrl) {
-      try {
-        const parsed = JSON.parse(formData.afterImageUrl)
-        afterUrls = Array.isArray(parsed) ? parsed : [formData.afterImageUrl]
-      } catch {
-        afterUrls = [formData.afterImageUrl]
-      }
-    }
-
-    console.log('Підготовлені URL:', { beforeUrls, afterUrls })
-
-    // Перевіряємо, що є хоча б одне зображення кожного типу
-    if (beforeUrls.length === 0 || afterUrls.length === 0) {
-      alert('Будь ласка, завантажте хоча б одне зображення &quot;До&quot; та &quot;Після&quot;')
+    if (formData.images.length === 0) {
+      alert('Будь ласка, завантажте хоча б одне зображення')
       return
     }
-
-    // Оновлюємо formData з актуальними даними
-    const updatedFormData = {
-      ...formData,
-      beforeImageUrl: JSON.stringify(beforeUrls),
-      afterImageUrl: JSON.stringify(afterUrls),
-    }
-
-    console.log('Дані для відправки:', updatedFormData)
 
     try {
       const url = editingImage
@@ -281,50 +220,52 @@ export default function AdminGalleryPage() {
         : '/api/admin/gallery'
       const method = editingImage ? 'PUT' : 'POST'
 
+      // We send 'images'. The backend handles mapping or clearing fields.
+      const payload = {
+        title: formData.title,
+        description: formData.description,
+        images: formData.images,
+        serviceId: formData.serviceId || null,
+        // Legacy fields could be sent as null or derived, but backend optionality handles it.
+        // We can send first image as before/after if we wanted to maintain some compatibility, 
+        // but let's rely on the new 'images' field primarily.
+        beforeImageUrl: formData.images[0], // Fallback for clients not updated? No, schema is updated.
+        afterImageUrl: formData.images[0]
+      }
+
       const response = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...updatedFormData,
-          serviceId: updatedFormData.serviceId || null,
-        }),
+        body: JSON.stringify(payload),
       })
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}))
         console.error('Error response:', errorData)
-        
-        if (response.status === 413) {
-          throw new Error('Зображення занадто великі. Будь ласка, використовуйте зображення меншого розміру або менше зображень одночасно.')
-        }
-        
         throw new Error(errorData.error || `HTTP ${response.status}: Помилка збереження`)
       }
 
       const result = await response.json()
-      console.log('Зображення збережено успішно:', result)
-      
+      console.log('Збережено:', result)
+
       fetchImages()
       setShowForm(false)
       setEditingImage(null)
       setFormData({
         title: '',
         description: '',
-        beforeImageUrl: '',
-        afterImageUrl: '',
+        images: [],
         serviceId: '',
       })
-      setBeforePreview([])
-      setAfterPreview([])
     } catch (error) {
       console.error('Error submitting form:', error)
       const errorMessage = error instanceof Error ? error.message : 'Невідома помилка'
-      alert(`Помилка при збереженні зображення: ${errorMessage}`)
+      alert(`Помилка при збереженні: ${errorMessage}`)
     }
   }
 
   const handleDelete = async (imageId: string) => {
-    if (!confirm('Ви впевнені, що хочете видалити це зображення?')) return
+    if (!confirm('Ви впевнені, що хочете видалити цей запис?')) return
 
     try {
       const response = await fetch(`/api/admin/gallery/${imageId}`, {
@@ -334,10 +275,10 @@ export default function AdminGalleryPage() {
       if (response.ok) {
         fetchImages()
       } else {
-        alert('Помилка при видаленні зображення')
+        alert('Помилка при видаленні')
       }
     } catch (error) {
-      alert('Помилка при видаленні зображення')
+      alert('Помилка при видаленні')
     }
   }
 
@@ -352,7 +293,7 @@ export default function AdminGalleryPage() {
   return (
     <div className="container mx-auto max-w-6xl px-4 py-16">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-4xl font-bold text-white">Керування галереєю</h1>
+        <h1 className="text-4xl font-bold text-white">Керування портфоліо</h1>
         <button
           onClick={() => {
             setShowForm(!showForm)
@@ -360,23 +301,20 @@ export default function AdminGalleryPage() {
             setFormData({
               title: '',
               description: '',
-              beforeImageUrl: '',
-              afterImageUrl: '',
+              images: [],
               serviceId: '',
             })
-            setBeforePreview([])
-            setAfterPreview([])
           }}
           className="bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors"
         >
-          {showForm ? 'Скасувати' : '+ Додати зображення'}
+          {showForm ? 'Скасувати' : '+ Додати роботу'}
         </button>
       </div>
 
       {showForm && (
         <div className="bg-white rounded-lg shadow-md p-6 mb-8">
           <h2 className="text-2xl font-semibold mb-4 text-gray-900">
-            {editingImage ? 'Редагувати зображення' : 'Нове зображення'}
+            {editingImage ? 'Редагувати роботу' : 'Нова робота'}
           </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -386,6 +324,7 @@ export default function AdminGalleryPage() {
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-900"
+                placeholder="Наприклад: Полірування BMW X5"
               />
             </div>
             <div>
@@ -395,194 +334,201 @@ export default function AdminGalleryPage() {
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 rows={3}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-900"
+                placeholder="Опис виконаних робіт..."
               />
             </div>
-            {/* Before Image Upload */}
+
             <div>
               <label className="block text-sm font-medium mb-2 text-gray-900">
-                Зображення &quot;До&quot; * (до 4 зображень)
+                Медіа (Фото або Відео) - до 10 файлів
               </label>
+
+              {/* URL Input */}
+              <div className="flex gap-2 mb-4">
+                <input
+                  type="text"
+                  placeholder="Вставте посилання на фото або відео (mp4, mov)..."
+                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-900"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault()
+                      const input = e.currentTarget
+                      const url = input.value.trim()
+                      if (!url) return
+
+                      if (formData.images.length >= 10) {
+                        alert('Максимум 10 файлів')
+                        return
+                      }
+
+                      setFormData(prev => ({
+                        ...prev,
+                        images: [...prev.images, url]
+                      }))
+                      input.value = ''
+                    }
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    const input = e.currentTarget.previousElementSibling as HTMLInputElement
+                    const url = input.value.trim()
+                    if (!url) return
+
+                    if (formData.images.length >= 10) {
+                      alert('Максимум 10 файлів')
+                      return
+                    }
+
+                    setFormData(prev => ({
+                      ...prev,
+                      images: [...prev.images, url]
+                    }))
+                    input.value = ''
+                  }}
+                  className="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors"
+                >
+                  Додати посилання
+                </button>
+              </div>
+
+              {/* File Upload */}
               <input
                 type="file"
                 accept="image/*"
                 multiple
-                onChange={(e) => {
-                  handleImageUpload(e.target.files, 'before')
-                }}
-                disabled={uploadingBefore || beforePreview.length >= 4}
-                className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+                onChange={(e) => handleImageUpload(e.target.files)}
+                disabled={uploading || formData.images.length >= 10}
+                className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 mb-2"
               />
-              {beforePreview.length >= 4 && (
-                <p className="mt-2 text-sm text-yellow-600">Досягнуто максимум 4 зображень</p>
+
+              {formData.images.length >= 10 && (
+                <p className="mt-2 text-sm text-yellow-600">Досягнуто максимум 10 файлів</p>
               )}
-              {uploadingBefore && (
+              {uploading && (
                 <p className="mt-2 text-sm text-gray-600">Завантаження...</p>
               )}
-              {beforePreview.length > 0 && (
-                <div className="mt-4 grid grid-cols-2 gap-4">
-                  {beforePreview.map((url, index) => (
-                    <div key={index} className="relative">
-                      <img
-                        src={url}
-                        alt={`Before preview ${index + 1}`}
-                        className="w-full h-32 object-cover rounded-lg border border-gray-300"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => removeImage(index, 'before')}
-                        className="absolute top-1 right-1 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-700"
-                      >
-                        ×
-                      </button>
-                    </div>
-                  ))}
+
+              {formData.images.length > 0 && (
+                <div className="mt-4 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                  {formData.images.map((url, index) => {
+                    const isVideo = /\.(mp4|mov|webm|ogg)$/i.test(url)
+                    return (
+                      <div key={index} className="relative group bg-gray-100 rounded-lg overflow-hidden h-24">
+                        {isVideo ? (
+                          <video
+                            src={url}
+                            className="w-full h-full object-cover"
+                            muted
+                          />
+                        ) : (
+                          <img
+                            src={url}
+                            alt={`Preview ${index + 1}`}
+                            className="w-full h-full object-cover"
+                          />
+                        )}
+                        <button
+                          type="button"
+                          onClick={() => removeImage(index)}
+                          className="absolute top-1 right-1 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-80 hover:opacity-100 transition-opacity z-10"
+                        >
+                          ×
+                        </button>
+                        <div className="absolute bottom-1 right-1 bg-black bg-opacity-50 text-white text-xs px-1 rounded">
+                          {index + 1}
+                        </div>
+                        {isVideo && (
+                          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                            <div className="bg-black bg-opacity-50 rounded-full p-1">
+                              <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" /></svg>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })}
                 </div>
               )}
             </div>
 
-            {/* After Image Upload */}
-            <div>
-              <label className="block text-sm font-medium mb-2 text-gray-900">
-                Зображення &quot;Після&quot; * (до 4 зображень)
-              </label>
-              <input
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={(e) => {
-                  handleImageUpload(e.target.files, 'after')
-                }}
-                disabled={uploadingAfter || afterPreview.length >= 4}
-                className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white focus:outline-none focus:ring-2 focus:ring-primary-500"
-              />
-              {afterPreview.length >= 4 && (
-                <p className="mt-2 text-sm text-yellow-600">Досягнуто максимум 4 зображень</p>
-              )}
-              {uploadingAfter && (
-                <p className="mt-2 text-sm text-gray-600">Завантаження...</p>
-              )}
-              {afterPreview.length > 0 && (
-                <div className="mt-4 grid grid-cols-2 gap-4">
-                  {afterPreview.map((url, index) => (
-                    <div key={index} className="relative">
-                      <img
-                        src={url}
-                        alt={`After preview ${index + 1}`}
-                        className="w-full h-32 object-cover rounded-lg border border-gray-300"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => removeImage(index, 'after')}
-                        className="absolute top-1 right-1 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-700"
-                      >
-                        ×
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              )}
+            <div className="flex justify-end pt-4">
+              <button
+                type="submit"
+                disabled={uploading}
+                className="bg-primary-600 text-white px-8 py-2 rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50"
+              >
+                {editingImage ? 'Оновити' : 'Зберегти'}
+              </button>
             </div>
-            <button
-              type="submit"
-              className="bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors"
-            >
-              {editingImage ? 'Оновити' : 'Додати'}
-            </button>
           </form>
         </div>
       )}
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {images.map((image) => {
-          // Парсимо JSON якщо це масив, інакше використовуємо як єдиний рядок
-          let beforeUrls: string[] = []
-          let afterUrls: string[] = []
-          
-          try {
-            beforeUrls = JSON.parse(image.beforeImageUrl)
-            if (!Array.isArray(beforeUrls)) beforeUrls = [image.beforeImageUrl]
-          } catch {
-            beforeUrls = [image.beforeImageUrl]
-          }
-          
-          try {
-            afterUrls = JSON.parse(image.afterImageUrl)
-            if (!Array.isArray(afterUrls)) afterUrls = [image.afterImageUrl]
-          } catch {
-            afterUrls = [image.afterImageUrl]
+          // Determine images to show
+          let displayImages: string[] = []
+          if (image.images && image.images.length > 0) {
+            displayImages = image.images
+          } else {
+            // Fallback
+            try {
+              const b = image.beforeImageUrl ? JSON.parse(image.beforeImageUrl) : []
+              const a = image.afterImageUrl ? JSON.parse(image.afterImageUrl) : []
+              displayImages = [...(Array.isArray(b) ? b : [image.beforeImageUrl]), ...(Array.isArray(a) ? a : [image.afterImageUrl])].filter(Boolean)
+            } catch {
+              if (image.beforeImageUrl) displayImages.push(image.beforeImageUrl)
+            }
           }
 
           return (
-          <div key={image.imageId} className="bg-white rounded-lg shadow-md overflow-hidden">
-            <div className="grid grid-cols-2 gap-1">
-              <div className="relative">
-                <div className="grid grid-cols-2 gap-1">
-                  {beforeUrls.slice(0, 4).map((url, idx) => (
-                    <div key={idx} className="relative h-16">
-                      <img
-                        src={url}
-                        alt={`Before ${idx + 1}`}
-                        className="w-full h-full object-cover"
-                      />
-                      {idx === 0 && (
-                        <div className="absolute top-1 left-1 bg-primary-600 text-white px-2 py-0.5 rounded text-xs">
-                          До
-                        </div>
-                      )}
-                    </div>
-                  ))}
+            <div key={image.imageId} className="bg-white rounded-lg shadow-md overflow-hidden">
+              <div className="relative h-48 bg-gray-100">
+                {displayImages.length > 0 ? (
+                  <img
+                    src={displayImages[0]}
+                    alt={image.title || 'Work'}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="flex items-center justify-center h-full text-gray-400">
+                    Немає фото
+                  </div>
+                )}
+                <div className="absolute top-2 right-2 bg-black bg-opacity-60 text-white px-2 py-1 rounded text-xs">
+                  {displayImages.length} фото
                 </div>
               </div>
-              <div className="relative">
-                <div className="grid grid-cols-2 gap-1">
-                  {afterUrls.slice(0, 4).map((url, idx) => (
-                    <div key={idx} className="relative h-16">
-                      <img
-                        src={url}
-                        alt={`After ${idx + 1}`}
-                        className="w-full h-full object-cover"
-                      />
-                      {idx === 0 && (
-                        <div className="absolute top-1 left-1 bg-green-600 text-white px-2 py-0.5 rounded text-xs">
-                          Після
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <div className="p-4">
-              {image.title && (
-                <h3 className="font-semibold mb-1 text-gray-900">{image.title}</h3>
-              )}
-              {image.description && (
-                <p className="text-sm text-gray-600 line-clamp-2 mb-2">
-                  {image.description}
+
+              <div className="p-4">
+                <h3 className="font-semibold mb-1 text-gray-900 truncate">
+                  {image.title || 'Без назви'}
+                </h3>
+                <p className="text-sm text-gray-600 line-clamp-2 mb-4 h-10">
+                  {image.description || 'Опис відсутній'}
                 </p>
-              )}
-              <div className="flex gap-2">
-                <button
-                  onClick={() => handleEdit(image)}
-                  className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm"
-                >
-                  Редагувати
-                </button>
-                <button
-                  onClick={() => handleDelete(image.imageId)}
-                  className="flex-1 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors text-sm"
-                >
-                  Видалити
-                </button>
+
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => handleEdit(image)}
+                    className="flex-1 bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 transition-colors text-sm"
+                  >
+                    Редагувати
+                  </button>
+                  <button
+                    onClick={() => handleDelete(image.imageId)}
+                    className="flex-1 bg-red-600 text-white px-3 py-2 rounded hover:bg-red-700 transition-colors text-sm"
+                  >
+                    Видалити
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
           )
         })}
       </div>
     </div>
   )
 }
-
-
-

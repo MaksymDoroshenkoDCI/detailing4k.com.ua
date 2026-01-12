@@ -20,7 +20,22 @@ export async function GET(request: NextRequest) {
       },
     })
 
-    return NextResponse.json(galleryImages)
+    const formattedImages = galleryImages.map((img) => {
+      let parsedImages = []
+      try {
+        parsedImages = typeof img.images === 'string' ? JSON.parse(img.images) : img.images
+      } catch (e) {
+        // Якщо не вдалося розпарсити, можливо це просто рядок або масив
+        parsedImages = Array.isArray(img.images) ? img.images : []
+      }
+
+      return {
+        ...img,
+        images: Array.isArray(parsedImages) ? parsedImages : [],
+      }
+    })
+
+    return NextResponse.json(formattedImages)
   } catch (error) {
     console.error('Error fetching gallery:', error)
     return NextResponse.json(
