@@ -9,8 +9,9 @@ export const dynamic = 'force-dynamic'
 const galleryImageSchema = z.object({
   title: z.string().optional().nullable(),
   description: z.string().optional().nullable(),
-  beforeImageUrl: z.string().min(1, 'Before image URL is required'),
-  afterImageUrl: z.string().min(1, 'After image URL is required'),
+  images: z.array(z.string()).max(10, 'Maximum 10 images allowed').default([]),
+  beforeImageUrl: z.string().optional().nullable(),
+  afterImageUrl: z.string().optional().nullable(),
   serviceId: z.string().uuid().optional().nullable(),
 })
 
@@ -26,8 +27,9 @@ export async function POST(request: NextRequest) {
       data: {
         title: validatedData.title || null,
         description: validatedData.description || null,
-        beforeImageUrl: validatedData.beforeImageUrl,
-        afterImageUrl: validatedData.afterImageUrl,
+        images: JSON.stringify(validatedData.images),
+        beforeImageUrl: validatedData.beforeImageUrl || null,
+        afterImageUrl: validatedData.afterImageUrl || null,
         serviceId: validatedData.serviceId || null,
       },
     })

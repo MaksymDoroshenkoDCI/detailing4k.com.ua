@@ -37,8 +37,9 @@ export interface GalleryImage {
   serviceId: string | null
   title: string | null
   description: string | null
-  beforeImageUrl: string
-  afterImageUrl: string
+  images: string[]
+  beforeImageUrl: string | null
+  afterImageUrl: string | null
   service?: {
     name: string
   }
