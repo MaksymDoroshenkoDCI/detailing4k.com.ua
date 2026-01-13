@@ -36,13 +36,14 @@ export async function GET(request: NextRequest) {
     })
 
     return NextResponse.json(formattedImages)
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching gallery:', error)
     return NextResponse.json(
       {
         error: 'Internal server error',
-        message: error instanceof Error ? error.message : String(error),
-        details: error
+        message: error?.message || String(error),
+        details: error,
+        prisma_check: !!prisma
       },
       { status: 500 }
     )
