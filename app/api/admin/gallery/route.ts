@@ -21,6 +21,10 @@ export async function POST(request: NextRequest) {
     if (error) return error
 
     const body = await request.json()
+    console.log('API Gallery POST body images count:', body.images?.length)
+    if (body.images?.[0]?.startsWith('data:')) {
+      console.warn('WARNING: Base64 data detected in gallery images')
+    }
     const validatedData = galleryImageSchema.parse(body)
 
     const image = await prisma.galleryImage.create({
