@@ -137,7 +137,8 @@ export default function AdminGalleryPage() {
 
           if (!response.ok) {
             const errorData = await response.json().catch(() => ({}))
-            throw new Error(errorData.error || `HTTP ${response.status}: Помилка завантаження зображення`)
+            console.error(`UPLOAD_DEBUG: Server responded with ${response.status}:`, errorData)
+            throw new Error(errorData.details || errorData.error || `HTTP ${response.status}: Помилка завантаження зображення`)
           }
 
           const data = await response.json()
