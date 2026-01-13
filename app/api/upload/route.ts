@@ -4,11 +4,11 @@ import { v2 as cloudinary } from 'cloudinary'
 export const dynamic = 'force-dynamic'
 
 export async function POST(request: NextRequest) {
-  // Configure Cloudinary inside the handler to ensure env vars are ready
+  // Configure Cloudinary inside the handler and trim values to avoid hidden spaces
   cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME?.trim(),
+    api_key: process.env.CLOUDINARY_API_KEY?.trim(),
+    api_secret: process.env.CLOUDINARY_API_SECRET?.trim(),
   })
 
   console.log('UPLOAD_API: Starting upload process')

@@ -17,15 +17,32 @@ const galleryImageSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
+    console.log('[GALLERY_POST] Starting request processing')
+
     const { error } = await requireAdmin(request)
-    if (error) return error
+    if (error) {
+      console.log('[GALLERY_POST] Admin auth failed')
+      return error
+    }
 
     const body = await request.json()
-    console.log('API Gallery POST body images count:', body.images?.length)
+    console.log('[GALLERY_POST] Request body:', JSON.stringify(body, null, 2))
+    console.log('[GALLERY_POST] Images count:', body.images?.length)
+
     if (body.images?.[0]?.startsWith('data:')) {
-      console.warn('WARNING: Base64 data detected in gallery images')
+      console.warn('[GALLERY_POST] WARNING: Base64 data detected in gallery images')
     }
+
+    console.log('[GALLERY_POST] Validating data with schema')
     const validatedData = galleryImageSchema.parse(body)
+    console.log('[GALLERY_POST] Validation successful')
+
+    console.log('[GALLERY_POST] Creating database record with data:', {
+      title: validatedData.title,
+      description: validatedData.description,
+      imagesCount: validatedData.images.length,
+      serviceId: validatedData.serviceId
+    })
 
     const image = await prisma.galleryImage.create({
       data: {
@@ -38,21 +55,30 @@ export async function POST(request: NextRequest) {
       },
     })
 
+    console.log('[GALLERY_POST] Successfully created image:', image.imageId)
     return NextResponse.json(image, { status: 201 })
   } catch (error) {
     if (error instanceof z.ZodError) {
+      console.error('[GALLERY_POST] Validation error:', error.errors)
       return NextResponse.json(
         { error: 'Invalid input', details: error.errors },
         { status: 400 }
       )
     }
 
-    console.error('Error creating gallery image:', error)
+    console.error('[GALLERY_POST] Database/Server error:', {
+      name: error instanceof Error ? error.name : 'Unknown',
+      message: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
+      raw: error
+    })
+
     return NextResponse.json(
       {
         error: 'Internal server error',
         message: error instanceof Error ? error.message : String(error),
-        details: error
+        name: error instanceof Error ? error.name : 'Unknown',
+        stack: process.env.NODE_ENV === 'development' ? (error instanceof Error ? error.stack : undefined) : undefined
       },
       { status: 500 }
     )

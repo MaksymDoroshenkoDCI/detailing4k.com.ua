@@ -2,6 +2,22 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 
 export async function GET(request: NextRequest) {
+  // Test database connection
+  try {
+    await prisma.$connect()
+    console.log('Database connected successfully')
+  } catch (connError: any) {
+    console.error('DATABASE_CONNECTION_ERROR:', connError)
+    return NextResponse.json(
+      {
+        error: 'Database connection failed',
+        message: connError?.message || String(connError),
+        details: connError
+      },
+      { status: 500 }
+    )
+  }
+
   try {
     const { searchParams } = new URL(request.url)
     const serviceId = searchParams.get('serviceId')
