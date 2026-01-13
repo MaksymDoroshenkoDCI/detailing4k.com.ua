@@ -45,7 +45,11 @@ export async function POST(request: NextRequest) {
 
     console.error('Error creating gallery image:', error)
     return NextResponse.json(
-      { error: 'Internal server error' },
+      {
+        error: 'Internal server error',
+        message: error instanceof Error ? error.message : String(error),
+        details: error
+      },
       { status: 500 }
     )
   }
