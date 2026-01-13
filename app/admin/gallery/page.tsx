@@ -32,9 +32,22 @@ export default function AdminGalleryPage() {
 
   const fetchImages = () => {
     fetch('/api/gallery')
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to fetch')
+        return res.json()
+      })
       .then((data) => {
-        setImages(data)
+        if (Array.isArray(data)) {
+          setImages(data)
+        } else {
+          console.error('API returned non-array:', data)
+          setImages([])
+        }
+        setLoading(false)
+      })
+      .catch((err) => {
+        console.error('Error loading gallery:', err)
+        setImages([])
         setLoading(false)
       })
   }

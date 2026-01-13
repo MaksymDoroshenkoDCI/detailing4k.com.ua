@@ -1,6 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { v2 as cloudinary } from 'cloudinary'
 
 export const dynamic = 'force-dynamic'
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+})
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,51 +22,55 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Validate file type
-    if (!file.type.startsWith('image/')) {
+    // Validate file type (allow images and videos)
+    const isImage = file.type.startsWith('image/')
+    const isVideo = file.type.startsWith('video/')
+
+    if (!isImage && !isVideo) {
       return NextResponse.json(
-        { error: 'File must be an image' },
+        { error: 'File must be an image or video' },
         { status: 400 }
       )
     }
 
-    // Validate file size (max 5MB)
-    if (file.size > 5 * 1024 * 1024) {
-      return NextResponse.json(
-        { error: 'File size must be less than 5MB' },
-        { status: 400 }
-      )
+    // Convert file to Buffer
+    const bytes = await file.arrayBuffer()
+    const buffer = Buffer.from(bytes)
+
+    // Upload to Cloudinary using a Promise-based stream
+    const uploadToCloudinary = () => {
+      return new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+          {
+            resource_type: 'auto', // Automatically detect image or video
+            folder: 'detailing4k-gallery',
+          },
+          (error, result) => {
+            if (error) reject(error)
+            else resolve(result)
+          }
+        )
+        uploadStream.end(buffer)
+      })
     }
 
-    try {
-      const bytes = await file.arrayBuffer()
-      const buffer = Buffer.from(bytes)
+    const result = (await uploadToCloudinary()) as any
 
-      const fileName = `${Date.now()}-${file.name.replace(/\s+/g, '-')}`
-      const path = require('path')
-      const fs = require('fs/promises')
+    return NextResponse.json({
+      url: result.secure_url,
+      public_id: result.public_id,
+      resource_type: result.resource_type
+    })
 
-      const uploadDir = path.join(process.cwd(), 'public', 'uploads')
-      await fs.mkdir(uploadDir, { recursive: true })
-
-      const filePath = path.join(uploadDir, fileName)
-      await fs.writeFile(filePath, buffer)
-
-      const url = `/uploads/${fileName}`
-
-      return NextResponse.json({ url })
-    } catch (error) {
-      console.error('Error processing file:', error)
-      return NextResponse.json(
-        { error: 'Error processing file', details: error instanceof Error ? error.message : 'Unknown error' },
-        { status: 500 }
-      )
-    }
   } catch (error) {
-    console.error('Error uploading file:', error)
+    console.error('Error uploading to Cloudinary:', error)
     return NextResponse.json(
-      { error: 'Internal server error', details: error instanceof Error ? error.message : 'Unknown error' },
+      {
+        error: 'Error uploading file',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      },
       { status: 500 }
     )
   }
 }
+
