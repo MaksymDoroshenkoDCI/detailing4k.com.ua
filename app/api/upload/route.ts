@@ -11,6 +11,10 @@ cloudinary.config({
 })
 
 export async function POST(request: NextRequest) {
+  console.log('UPLOAD_API: Starting upload process')
+  console.log('UPLOAD_API: Cloud name is present:', !!process.env.CLOUDINARY_CLOUD_NAME)
+  console.log('UPLOAD_API: API Key is present:', !!process.env.CLOUDINARY_API_KEY)
+
   try {
     const formData = await request.formData()
     const file = formData.get('file') as File
@@ -63,11 +67,12 @@ export async function POST(request: NextRequest) {
     })
 
   } catch (error) {
-    console.error('Error uploading to Cloudinary:', error)
+    console.error('UPLOAD_API: Error uploading to Cloudinary:', error)
     return NextResponse.json(
       {
         error: 'Error uploading file',
-        details: error instanceof Error ? error.message : 'Unknown error'
+        details: error instanceof Error ? error.message : 'Unknown error',
+        raw_error: error
       },
       { status: 500 }
     )
