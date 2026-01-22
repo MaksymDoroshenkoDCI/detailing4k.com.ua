@@ -83,17 +83,17 @@ export default function ConsultantWidget() {
                             </div>
 
                             <a
-                                href="tel:+380960000000"
+                                href="tel:+380989946178"
                                 className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors text-gray-700 font-medium"
                             >
                                 <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600">
                                     <PhoneIcon />
                                 </div>
-                                Зателефонувати
+                                +38 098 994 6178
                             </a>
 
                             <a
-                                href="https://t.me/detailing4k"
+                                href="https://t.me/+8s6f74D5ZKkzYjg6"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors text-gray-700 font-medium"

@@ -26,7 +26,7 @@ export default function Footer() {
               <li>Брожка 38/58, Київ, Україна</li>
               <li>
                 <a href="tel:+380989946178" className="hover:text-primary-500 transition-colors">
-                  098 994 6178
+                  +38 098 994 6178
                 </a>
               </li>
               <li>
@@ -62,6 +62,14 @@ export default function Footer() {
                 className="text-gray-400 hover:text-primary-500 transition-colors font-bold"
               >
                 YouTube
+              </a>
+              <a
+                href="https://t.me/+8s6f74D5ZKkzYjg6"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-primary-500 transition-colors font-bold"
+              >
+                Telegram
               </a>
             </div>
           </div>

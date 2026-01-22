@@ -133,7 +133,7 @@ export default function ContactPage() {
                     href="tel:+380989946178"
                     className="text-primary-700 hover:text-primary-600 font-semibold"
                   >
-                    098 994 6178
+                    +38 098 994 6178
                   </a>
                   <a
                     href="tel:+380681670042"
@@ -164,7 +164,7 @@ export default function ContactPage() {
                     WhatsApp
                   </a>
                   <a
-                    href="https://t.me/detaling4k"
+                    href="https://t.me/+8s6f74D5ZKkzYjg6"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[#0088cc] hover:text-[#0077b5]"
