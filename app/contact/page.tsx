@@ -72,7 +72,7 @@ export default function ContactPage() {
                   type="text"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900"
                   required
                 />
               </div>
@@ -82,7 +82,7 @@ export default function ContactPage() {
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900"
                   required
                 />
               </div>
@@ -92,7 +92,7 @@ export default function ContactPage() {
                   type="tel"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900"
                 />
               </div>
               <div>
@@ -101,7 +101,7 @@ export default function ContactPage() {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   rows={5}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900"
                   required
                   minLength={10}
                 />
@@ -153,7 +153,7 @@ export default function ContactPage() {
                 </a>
               </div>
               <div>
-                <h4 className="font-medium mb-2">Швидкий зв'язок</h4>
+                <h4 className="font-medium mb-2 text-gray-900">Швидкий зв'язок</h4>
                 <div className="flex gap-4">
                   <a
                     href="https://wa.me/380XXXXXXXXX"
@@ -164,7 +164,7 @@ export default function ContactPage() {
                     WhatsApp
                   </a>
                   <a
-                    href="https://t.me/detailing4k"
+                    href="https://t.me/detaling4k"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[#0088cc] hover:text-[#0077b5]"
