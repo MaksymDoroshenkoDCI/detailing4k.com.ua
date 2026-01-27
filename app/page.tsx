@@ -90,10 +90,11 @@ export default async function Home() {
               >
                 {service.imageUrl && (
                   <div className="h-48 bg-gray-200 relative">
-                    <img
+                    <Image
                       src={service.imageUrl}
                       alt={service.name}
-                      className="w-full h-full object-cover"
+                      fill
+                      className="object-cover"
                     />
                   </div>
                 )}
@@ -283,7 +284,12 @@ export default async function Home() {
               <div key={post.id} className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-xl transition-all flex flex-col h-full">
                 <div className="h-48 bg-gray-800 relative flex items-center justify-center overflow-hidden">
                   {post.imageUrl ? (
-                    <img src={post.imageUrl} alt={post.title} className="w-full h-full object-cover" />
+                    <Image
+                      src={post.imageUrl}
+                      alt={post.title}
+                      fill
+                      className="object-cover"
+                    />
                   ) : (
                     <span className="text-4xl">✨</span>
                   )}
