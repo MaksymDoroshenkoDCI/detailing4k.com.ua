@@ -166,10 +166,38 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Blog/Advice Section */}
+      <section className="py-16 px-4 bg-white">
+        <div className="container mx-auto max-w-6xl">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">Поради по догляду за авто</h2>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-xl transition-all">
+              <div className="h-48 bg-gray-800 relative flex items-center justify-center">
+                <span className="text-4xl">✨</span>
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold mb-3 text-gray-900">Як правильно полірувати авто: детальний гід</h3>
+                <p className="text-gray-600 mb-4 line-clamp-3">
+                  Дізнайтеся про етапи полірування, необхідні матеріали та різницю між домашнім та професійним доглядом.
+                  Покрокова інструкція для автолюбителів.
+                </p>
+                <Link
+                  href="/blog/how-to-polish-auto"
+                  className="text-primary-600 font-semibold hover:text-primary-500 inline-flex items-center"
+                >
+                  Читати статтю <span className="ml-2">→</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ Section */}
       <section className="py-16 px-4 bg-gray-50">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl font-bold text-center mb-12">Часті питання</h2>
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">Часті питання</h2>
 
           <div className="space-y-6">
             <details className="bg-white rounded-lg shadow-md p-6 group">
