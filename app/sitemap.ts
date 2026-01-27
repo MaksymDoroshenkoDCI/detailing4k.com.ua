@@ -12,6 +12,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         }
     })
 
+    // Отримати всі статті з БД
+    const posts = await prisma.post.findMany({
+        where: { published: true },
+        select: {
+            slug: true,
+            updatedAt: true,
+        }
+    })
+
     return [
         {
             url: baseUrl,
@@ -32,6 +41,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.8,
         },
         {
+            url: `${baseUrl}/autodohlyad`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.8,
+        },
+        {
             url: `${baseUrl}/booking`,
             lastModified: new Date(),
             changeFrequency: 'monthly',
@@ -43,18 +58,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             changeFrequency: 'monthly',
             priority: 0.7,
         },
-        {
-            url: `${baseUrl}/blog/how-to-polish-auto`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.8,
-        },
         // Додати всі послуги
         ...services.map((service) => ({
             url: `${baseUrl}/services/${service.serviceId}`,
             lastModified: new Date(service.updatedAt),
             changeFrequency: 'weekly' as const,
             priority: 0.8,
+        })),
+        // Додати всі статті
+        ...posts.map((post) => ({
+            url: `${baseUrl}/autodohlyad/${post.slug}`,
+            lastModified: new Date(post.updatedAt),
+            changeFrequency: 'monthly' as const,
+            priority: 0.7,
         })),
     ]
 }

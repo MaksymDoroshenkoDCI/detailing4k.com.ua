@@ -30,6 +30,7 @@ export default function Navbar() {
     { href: '/', label: 'Головна' },
     { href: '/services', label: 'Послуги' },
     { href: '/gallery', label: 'Галерея робіт' },
+    { href: '/autodohlyad', label: 'Автодогляд' },
     { href: '/testimonials', label: 'Відгуки' },
     { href: '/contact', label: 'Контакти' },
   ]

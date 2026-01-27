@@ -12,6 +12,7 @@ export default function AdminDashboard() {
     consultations: 0,
     testimonials: 0,
     services: 0,
+    posts: 0,
   })
   const [loading, setLoading] = useState(true)
 
@@ -27,12 +28,14 @@ export default function AdminDashboard() {
             fetch('/api/consultations').then((r) => r.json()),
             fetch('/api/testimonials').then((r) => r.json()),
             fetch('/api/services').then((r) => r.json()),
-          ]).then(([bookings, consultations, testimonials, services]) => {
+            fetch('/api/admin/posts').then((r) => r.json()),
+          ]).then(([bookings, consultations, testimonials, services, posts]) => {
             setStats({
               bookings: bookings.length,
               consultations: consultations.length,
               testimonials: testimonials.length,
               services: services.length,
+              posts: posts.length,
             })
             setLoading(false)
           })
@@ -47,7 +50,7 @@ export default function AdminDashboard() {
 
   if (loading) {
     return (
-      <div className="container mx-auto max-w-6xl px-4 py-16 text-center">
+      <div className="container mx-auto max-w-6xl px-4 py-16 text-center text-white">
         <p>Завантаження...</p>
       </div>
     )
@@ -60,40 +63,47 @@ export default function AdminDashboard() {
   return (
     <div className="container mx-auto max-w-6xl px-4 py-16">
       <h1 className="text-4xl font-bold mb-8 text-white">Адмін панель</h1>
-      <p className="text-white mb-8">Вітаємо, {user.name}!</p>
+      <p className="text-white mb-8 text-lg">Вітаємо, {user.name}!</p>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+      <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6 mb-12">
         <Link
           href="/admin/bookings"
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
         >
-          <h3 className="text-lg font-semibold mb-2 text-gray-900">Бронювання</h3>
+          <h3 className="text-lg font-semibold mb-2 text-gray-900">БРОНЮ</h3>
           <p className="text-3xl font-bold text-primary-600">{stats.bookings}</p>
         </Link>
         <Link
           href="/admin/consultations"
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
         >
-          <h3 className="text-lg font-semibold mb-2 text-gray-900">Консультації</h3>
+          <h3 className="text-lg font-semibold mb-2 text-gray-900">КОНСУЛЬТ</h3>
           <p className="text-3xl font-bold text-primary-600">{stats.consultations}</p>
         </Link>
         <Link
           href="/admin/testimonials"
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
         >
-          <h3 className="text-lg font-semibold mb-2 text-gray-900">Відгуки</h3>
+          <h3 className="text-lg font-semibold mb-2 text-gray-900">ВІДГУКИ</h3>
           <p className="text-3xl font-bold text-primary-600">{stats.testimonials}</p>
         </Link>
         <Link
           href="/admin/services"
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
         >
-          <h3 className="text-lg font-semibold mb-2 text-gray-900">Послуги</h3>
+          <h3 className="text-lg font-semibold mb-2 text-gray-900">ПОСЛУГИ</h3>
           <p className="text-3xl font-bold text-primary-600">{stats.services}</p>
+        </Link>
+        <Link
+          href="/admin/posts"
+          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
+        >
+          <h3 className="text-lg font-semibold mb-2 text-gray-900">ПОРАДИ</h3>
+          <p className="text-3xl font-bold text-primary-600">{stats.posts}</p>
         </Link>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid md:grid-cols-3 gap-6">
         <Link
           href="/admin/gallery"
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
@@ -108,10 +118,14 @@ export default function AdminDashboard() {
           <h3 className="text-xl font-semibold mb-2 text-gray-900">Керування послугами</h3>
           <p className="text-gray-600">Додавати, редагувати та видаляти послуги</p>
         </Link>
+        <Link
+          href="/admin/posts"
+          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
+        >
+          <h3 className="text-xl font-semibold mb-2 text-gray-900">Автодогляд (Статті)</h3>
+          <p className="text-gray-600">Керування корисними порадами та статтями</p>
+        </Link>
       </div>
     </div>
   )
 }
-
-
-

@@ -136,3 +136,17 @@ model Admin {
 
   @@map("admins")
 }
+
+model Post {
+  id        String   @id @default(uuid())
+  slug      String   @unique
+  title     String
+  content   String   @db.Text
+  excerpt   String?  @db.Text
+  imageUrl  String?  @map("image_url")
+  published Boolean  @default(false)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("posts")
+}

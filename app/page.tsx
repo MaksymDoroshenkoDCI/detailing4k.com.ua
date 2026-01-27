@@ -34,8 +34,8 @@ export default async function Home() {
         </div>
 
         <div className="container mx-auto max-w-6xl text-center relative z-10">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
-            Професійний авто детейлінг у Києві
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white leading-tight">
+            Детейлінг авто в Києві — <br className="hidden md:block" /> студія Detailing4K
           </h1>
 
           <div className="flex justify-center mb-6">
@@ -51,28 +51,39 @@ export default async function Home() {
             </div>
           </div>
 
-          <p className="text-xl md:text-2xl mb-8 text-primary-300 font-medium">
+          <p className="text-xl md:text-2xl mb-8 text-primary-300 font-medium tracking-wide">
             Відновлюємо первозданний вигляд вашого автомобіля
           </p>
 
-          <p className="text-lg mb-10 text-gray-300 max-w-2xl mx-auto">
-            Відновлюємо первозданний вигляд вашого автомобіля. Полірування, керамічне покриття,
-            глибоке чищення та комплексний догляд.
+          <p className="text-lg mb-10 text-gray-300 max-w-2xl mx-auto leading-relaxed">
+            Повний комплекс послуг: полірування, керамічне покриття, хімчистка та антигравійна плівка.
+            Професійний догляд з гарантією якості.
           </p>
 
-          <div className="flex gap-4 justify-center flex-wrap">
-            <Link
-              href="/services"
-              className="bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-            >
-              Наші послуги
-            </Link>
-            <Link
-              href="/booking"
-              className="bg-primary-500 text-black px-8 py-3 rounded-lg font-semibold hover:bg-primary-400 transition-colors"
-            >
-              Записатися
-            </Link>
+          <div className="flex flex-col items-center gap-6">
+            <div className="flex gap-4 justify-center flex-wrap">
+              <Link
+                href="/services"
+                title="Переглянути послуги детейлінгу"
+                className="bg-white text-black px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors shadow-lg"
+              >
+                Наші послуги
+              </Link>
+              <Link
+                href="/booking"
+                title="Записатись на детейлінг"
+                className="bg-primary-500 text-black px-8 py-3 rounded-lg font-bold hover:bg-primary-400 transition-colors shadow-lg hover:shadow-primary-500/50"
+              >
+                Записатися
+              </Link>
+            </div>
+
+            {/* Micro-text / Badges */}
+            <div className="flex gap-4 md:gap-8 text-sm md:text-base text-gray-300 font-medium">
+              <span className="flex items-center"><span className="text-primary-400 mr-2">✓</span> Працюємо без вихідних</span>
+              <span className="flex items-center"><span className="text-primary-400 mr-2">✓</span> Гарантія на роботи</span>
+              <span className="flex items-center"><span className="text-primary-400 mr-2">✓</span> Преміум матеріали</span>
+            </div>
           </div>
         </div>
       </section>
