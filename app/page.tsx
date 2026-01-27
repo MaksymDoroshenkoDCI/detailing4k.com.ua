@@ -34,23 +34,25 @@ export default async function Home() {
         </div>
 
         <div className="container mx-auto max-w-6xl text-center relative z-10">
-          <h1 className="sr-only">Detailing 4K</h1>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
+            Професійний авто детейлінг у Києві
+          </h1>
 
-          <div className="flex justify-center mb-0">
-            <div className="relative w-[500px] h-[400px] overflow-hidden">
+          <div className="flex justify-center mb-6">
+            <div className="relative w-[400px] h-[320px] overflow-hidden">
               <Image
                 src="/logo-white.png"
-                alt="Detailing 4K Logo"
-                width={500}
-                height={500}
+                alt="Detailing 4K - професійний авто детейлінг у Києві"
+                width={400}
+                height={400}
                 priority
                 className="object-cover object-top"
               />
             </div>
           </div>
 
-          <p className="text-xl md:text-2xl mb-8 text-primary-400">
-            Професійний авто детейлінг у Києві
+          <p className="text-xl md:text-2xl mb-8 text-primary-300 font-medium">
+            Відновлюємо первозданний вигляд вашого автомобіля
           </p>
 
           <p className="text-lg mb-10 text-gray-300 max-w-2xl mx-auto">
@@ -160,6 +162,87 @@ export default async function Home() {
               <h3 className="font-semibold mb-2">Зручний запис</h3>
               <p className="text-gray-600 text-sm">Онлайн бронювання 24/7</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-16 px-4 bg-gray-50">
+        <div className="container mx-auto max-w-4xl">
+          <h2 className="text-3xl font-bold text-center mb-12">Часті питання</h2>
+
+          <div className="space-y-6">
+            <details className="bg-white rounded-lg shadow-md p-6 group">
+              <summary className="font-semibold text-lg cursor-pointer list-none flex justify-between items-center">
+                Що таке детейлінг автомобіля?
+                <span className="text-2xl group-open:rotate-45 transition-transform">+</span>
+              </summary>
+              <p className="mt-4 text-gray-600">
+                Детейлінг - це комплексний професійний догляд за автомобілем, який включає глибоке чищення,
+                полірування, захист кузова та салону. На відміну від звичайної мийки, детейлінг відновлює
+                первозданний вигляд автомобіля та захищає його від зовнішніх впливів.
+              </p>
+            </details>
+
+            <details className="bg-white rounded-lg shadow-md p-6 group">
+              <summary className="font-semibold text-lg cursor-pointer list-none flex justify-between items-center">
+                Скільки часу займає детейлінг?
+                <span className="text-2xl group-open:rotate-45 transition-transform">+</span>
+              </summary>
+              <p className="mt-4 text-gray-600">
+                Час виконання залежить від обраних послуг: експрес-детейлінг займає 2-3 години,
+                повний детейлінг - від 6 до 12 годин, керамічне покриття - 1-2 дні. Ми завжди
+                повідомляємо точний час при записі.
+              </p>
+            </details>
+
+            <details className="bg-white rounded-lg shadow-md p-6 group">
+              <summary className="font-semibold text-lg cursor-pointer list-none flex justify-between items-center">
+                Як часто потрібно робити детейлінг?
+                <span className="text-2xl group-open:rotate-45 transition-transform">+</span>
+              </summary>
+              <p className="mt-4 text-gray-600">
+                Рекомендуємо комплексний детейлінг 2-4 рази на рік (кожен сезон). Керамічне покриття
+                служить 1-3 роки залежно від умов експлуатації. Хімчистку салону краще робити
+                кожні 6 місяців або за потреби.
+              </p>
+            </details>
+
+            <details className="bg-white rounded-lg shadow-md p-6 group">
+              <summary className="font-semibold text-lg cursor-pointer list-none flex justify-between items-center">
+                Чи безпечне полірування для лакофарбового покриття?
+                <span className="text-2xl group-open:rotate-45 transition-transform">+</span>
+              </summary>
+              <p className="mt-4 text-gray-600">
+                Так, професійне полірування абсолютно безпечне. Ми використовуємо сучасне обладнання
+                та преміальні полірувальні пасти, які знімають мінімальний шар лаку (1-3 мікрони).
+                Товщина лаку вимірюється перед роботою.
+              </p>
+            </details>
+
+            <details className="bg-white rounded-lg shadow-md p-6 group">
+              <summary className="font-semibold text-lg cursor-pointer list-none flex justify-between items-center">
+                Що входить у вартість послуг?
+                <span className="text-2xl group-open:rotate-45 transition-transform">+</span>
+              </summary>
+              <p className="mt-4 text-gray-600">
+                Вартість включає всі матеріали преміум-класу, роботу майстрів, використання
+                професійного обладнання. Ми працюємо прозоро - фінальна ціна обговорюється
+                до початку робіт і не змінюється.
+              </p>
+            </details>
+
+            <details className="bg-white rounded-lg shadow-md p-6 group">
+              <summary className="font-semibold text-lg cursor-pointer list-none flex justify-between items-center">
+                Чи надаєте гарантію на роботи?
+                <span className="text-2xl group-open:rotate-45 transition-transform">+</span>
+              </summary>
+              <p className="mt-4 text-gray-600">
+                Так, ми надаємо гарантію на всі види робіт. На керамічне покриття - до 3 років,
+                на полірування - до 6 місяців, на хімчистку салону - 1 місяць. Умови гарантії
+                обговорюються індивідуально.
+              </p>
+            </details>
           </div>
         </div>
       </section>

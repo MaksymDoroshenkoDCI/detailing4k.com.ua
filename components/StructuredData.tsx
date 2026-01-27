@@ -1,0 +1,97 @@
+export default function StructuredData() {
+    const structuredData = {
+        '@context': 'https://schema.org',
+        '@type': 'AutoRepair',
+        name: 'Detailing 4K',
+        image: 'https://detailing4k.com.ua/logo.png',
+        '@id': 'https://detailing4k.com.ua',
+        url: 'https://detailing4k.com.ua',
+        telephone: '+380989946178',
+        priceRange: '$$',
+        address: {
+            '@type': 'PostalAddress',
+            streetAddress: 'Київ',
+            addressLocality: 'Київ',
+            addressRegion: 'Київська область',
+            addressCountry: 'UA'
+        },
+        geo: {
+            '@type': 'GeoCoordinates',
+            latitude: 50.4501,
+            longitude: 30.5234
+        },
+        openingHoursSpecification: [
+            {
+                '@type': 'OpeningHoursSpecification',
+                dayOfWeek: [
+                    'Monday',
+                    'Tuesday',
+                    'Wednesday',
+                    'Thursday',
+                    'Friday'
+                ],
+                opens: '09:00',
+                closes: '19:00'
+            },
+            {
+                '@type': 'OpeningHoursSpecification',
+                dayOfWeek: 'Saturday',
+                opens: '10:00',
+                closes: '18:00'
+            }
+        ],
+        sameAs: [
+            'https://t.me/+8s6f74D5ZKkzYjg6'
+        ],
+        aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: '4.9',
+            reviewCount: '50'
+        },
+        hasOfferCatalog: {
+            '@type': 'OfferCatalog',
+            name: 'Послуги детейлінгу',
+            itemListElement: [
+                {
+                    '@type': 'Offer',
+                    itemOffered: {
+                        '@type': 'Service',
+                        name: 'Полірування кузова',
+                        description: 'Професійне полірування автомобіля для відновлення блиску'
+                    }
+                },
+                {
+                    '@type': 'Offer',
+                    itemOffered: {
+                        '@type': 'Service',
+                        name: 'Керамічне покриття',
+                        description: 'Захист кузова керамічним покриттям'
+                    }
+                },
+                {
+                    '@type': 'Offer',
+                    itemOffered: {
+                        '@type': 'Service',
+                        name: 'Хімчистка салону',
+                        description: 'Глибоке чищення салону автомобіля'
+                    }
+                },
+                {
+                    '@type': 'Offer',
+                    itemOffered: {
+                        '@type': 'Service',
+                        name: 'Детейлінг фар',
+                        description: 'Полірування та відновлення прозорості фар'
+                    }
+                }
+            ]
+        }
+    }
+
+    return (
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+    )
+}

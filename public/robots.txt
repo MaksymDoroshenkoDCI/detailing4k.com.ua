@@ -1,0 +1,8 @@
+# Detailing 4K - Robots.txt
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/admin/
+
+# Sitemap
+Sitemap: https://detailing4k.com.ua/sitemap.xml
