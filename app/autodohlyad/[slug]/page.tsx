@@ -70,52 +70,7 @@ export default async function PostDetailPage({
                 </div>
             </article>
 
-            <style jsx global>{`
-        .article-content h2 {
-          font-size: 1.875rem;
-          font-weight: 700;
-          color: #111827;
-          margin-top: 2.5rem;
-          margin-bottom: 1rem;
-        }
-        .article-content h3 {
-          font-size: 1.5rem;
-          font-weight: 600;
-          color: #111827;
-          margin-top: 2rem;
-          margin-bottom: 1rem;
-        }
-        .article-content p {
-          margin-bottom: 1.5rem;
-        }
-        .article-content ul, .article-content ol {
-          margin-bottom: 1.5rem;
-          padding-left: 1.5rem;
-        }
-        .article-content ul {
-          list-style-type: disc;
-        }
-        .article-content ol {
-          list-style-type: decimal;
-        }
-        .article-content li {
-          margin-bottom: 0.5rem;
-        }
-        .article-content table {
-          width: 100%;
-          border-collapse: collapse;
-          margin: 2rem 0;
-        }
-        .article-content th, .article-content td {
-          border: 1px border #e5e7eb;
-          padding: 0.75rem;
-          text-align: left;
-        }
-        .article-content th {
-          background-color: #f9fafb;
-          font-weight: 700;
-        }
-      `}</style>
+
         </div>
     )
 }
