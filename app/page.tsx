@@ -173,9 +173,9 @@ export default async function Home() {
 
           <div className="space-y-6">
             <details className="bg-white rounded-lg shadow-md p-6 group">
-              <summary className="font-semibold text-lg cursor-pointer list-none flex justify-between items-center">
+              <summary className="font-semibold text-lg cursor-pointer list-none flex justify-between items-center text-gray-900">
                 Що таке детейлінг автомобіля?
-                <span className="text-2xl group-open:rotate-45 transition-transform">+</span>
+                <span className="text-2xl group-open:rotate-45 transition-transform text-gray-900">+</span>
               </summary>
               <p className="mt-4 text-gray-600">
                 Детейлінг - це комплексний професійний догляд за автомобілем, який включає глибоке чищення,
@@ -185,9 +185,9 @@ export default async function Home() {
             </details>
 
             <details className="bg-white rounded-lg shadow-md p-6 group">
-              <summary className="font-semibold text-lg cursor-pointer list-none flex justify-between items-center">
+              <summary className="font-semibold text-lg cursor-pointer list-none flex justify-between items-center text-gray-900">
                 Скільки часу займає детейлінг?
-                <span className="text-2xl group-open:rotate-45 transition-transform">+</span>
+                <span className="text-2xl group-open:rotate-45 transition-transform text-gray-900">+</span>
               </summary>
               <p className="mt-4 text-gray-600">
                 Час виконання залежить від обраних послуг: експрес-детейлінг займає 2-3 години,
@@ -197,9 +197,9 @@ export default async function Home() {
             </details>
 
             <details className="bg-white rounded-lg shadow-md p-6 group">
-              <summary className="font-semibold text-lg cursor-pointer list-none flex justify-between items-center">
+              <summary className="font-semibold text-lg cursor-pointer list-none flex justify-between items-center text-gray-900">
                 Як часто потрібно робити детейлінг?
-                <span className="text-2xl group-open:rotate-45 transition-transform">+</span>
+                <span className="text-2xl group-open:rotate-45 transition-transform text-gray-900">+</span>
               </summary>
               <p className="mt-4 text-gray-600">
                 Рекомендуємо комплексний детейлінг 2-4 рази на рік (кожен сезон). Керамічне покриття
@@ -209,9 +209,9 @@ export default async function Home() {
             </details>
 
             <details className="bg-white rounded-lg shadow-md p-6 group">
-              <summary className="font-semibold text-lg cursor-pointer list-none flex justify-between items-center">
+              <summary className="font-semibold text-lg cursor-pointer list-none flex justify-between items-center text-gray-900">
                 Чи безпечне полірування для лакофарбового покриття?
-                <span className="text-2xl group-open:rotate-45 transition-transform">+</span>
+                <span className="text-2xl group-open:rotate-45 transition-transform text-gray-900">+</span>
               </summary>
               <p className="mt-4 text-gray-600">
                 Так, професійне полірування абсолютно безпечне. Ми використовуємо сучасне обладнання
@@ -221,9 +221,9 @@ export default async function Home() {
             </details>
 
             <details className="bg-white rounded-lg shadow-md p-6 group">
-              <summary className="font-semibold text-lg cursor-pointer list-none flex justify-between items-center">
+              <summary className="font-semibold text-lg cursor-pointer list-none flex justify-between items-center text-gray-900">
                 Що входить у вартість послуг?
-                <span className="text-2xl group-open:rotate-45 transition-transform">+</span>
+                <span className="text-2xl group-open:rotate-45 transition-transform text-gray-900">+</span>
               </summary>
               <p className="mt-4 text-gray-600">
                 Вартість включає всі матеріали преміум-класу, роботу майстрів, використання
@@ -233,9 +233,9 @@ export default async function Home() {
             </details>
 
             <details className="bg-white rounded-lg shadow-md p-6 group">
-              <summary className="font-semibold text-lg cursor-pointer list-none flex justify-between items-center">
+              <summary className="font-semibold text-lg cursor-pointer list-none flex justify-between items-center text-gray-900">
                 Чи надаєте гарантію на роботи?
-                <span className="text-2xl group-open:rotate-45 transition-transform">+</span>
+                <span className="text-2xl group-open:rotate-45 transition-transform text-gray-900">+</span>
               </summary>
               <p className="mt-4 text-gray-600">
                 Так, ми надаємо гарантію на всі види робіт. На керамічне покриття - до 3 років,
