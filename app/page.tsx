@@ -133,6 +133,109 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* SEO Info Section */}
+      <section className="py-16 px-4 bg-gray-50 border-y border-gray-200">
+        <div className="container mx-auto max-w-4xl">
+          <header className="mb-10 text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              Детейлінг авто в Києві — студія Detailing4K
+            </h2>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              <strong>Detailing4K</strong> — це сучасна студія детейлінгу в Києві, що спеціалізується на професійному догляді, відновленні та захисті автомобілів. Ми надаємо повний комплекс послуг з <strong>детейлінгу авто в Києві</strong>, поєднуючи досвід майстрів, преміальні матеріали та уважне ставлення до кожної деталі.
+            </p>
+            <p className="mt-4 text-gray-700">
+              Якщо вам потрібен якісний <strong>детейлінг авто Київ</strong> — ви за адресою.
+            </p>
+          </header>
+
+          <div className="space-y-12">
+            <div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Послуги студії детейлінгу Detailing4K</h3>
+
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h4 className="text-xl font-semibold text-gray-900 mb-2">Мийка та полірування авто в Києві</h4>
+                  <p className="text-gray-600 mb-4">
+                    Професійна мийка та <strong>полірування авто в Києві</strong> — одна з ключових послуг нашої студії. Ми виконуємо багатофазну ручну мийку, повністю видаляючи забруднення з кузова, дисків і важкодоступних зон. Полірування дозволяє усунути дрібні подряпини, сліди зношування та повернути лакофарбовому покриттю глибокий колір і блиск.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="text-xl font-semibold text-gray-900 mb-2">Керамічне покриття та антигравійна плівка</h4>
+                  <p className="text-gray-600 mb-4">
+                    Для довготривалого захисту ми пропонуємо <strong>керамічне покриття авто</strong> та обклеювання автомобіля <strong>антигравійною плівкою</strong>. Дані послуги захищають кузов від сколів, подряпин, реагентів, ультрафіолету та агресивних умов експлуатації. <strong>Антигравійна плівка в Києві</strong> — оптимальне рішення для збереження ідеального вигляду автомобіля.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="text-xl font-semibold text-gray-900 mb-2">Детейлінг салону та хімчистка авто</h4>
+                  <p className="text-gray-600 mb-4">
+                    <strong>Хімчистка салону авто</strong> — важлива частина комплексного детейлінгу. Ми проводимо глибоке очищення сидінь, підлоги, стелі, пластикових і шкіряних елементів салону. Видаляємо складні плями, запахи та бактерії, повертаючи салону чистоту, свіжість і охайний вигляд.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="text-xl font-semibold text-gray-900 mb-2">Полірування фар і захист скла</h4>
+                  <p className="text-gray-600 mb-4">
+                    Полірування фар дозволяє відновити прозорість оптики та покращити освітлення дороги. Додатково наносимо антидощові покриття на скло, що забезпечує кращу видимість і комфорт керування автомобілем у дощову погоду.
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-6 bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                <h4 className="text-xl font-semibold text-gray-900 mb-2">Озонація салону</h4>
+                <p className="text-gray-600">
+                  Озонація салону — ефективний спосіб усунення неприємних запахів і знищення бактерій. Процедура ідеально підходить для автомобілів із запахом тютюну, вологи або тварин та створює здоровий мікроклімат всередині авто.
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-white p-8 rounded-xl shadow-md border border-gray-100">
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">Чому варто обрати студію детейлінгу Detailing4K у Києві</h3>
+              <p className="text-gray-700 mb-4">Нас обирають клієнти, які цінують результат:</p>
+              <ul className="text-gray-700 grid md:grid-cols-2 gap-3 list-none">
+                <li className="flex items-center"><span className="text-primary-500 mr-2">✓</span> професійний <strong>детейлінг у Києві</strong> з гарантією якості</li>
+                <li className="flex items-center"><span className="text-primary-500 mr-2">✓</span> використання сертифікованих матеріалів і автохімії</li>
+                <li className="flex items-center"><span className="text-primary-500 mr-2">✓</span> індивідуальний підбір комплексу послуг</li>
+                <li className="flex items-center"><span className="text-primary-500 mr-2">✓</span> чесна та прозора вартість</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Вартість детейлінгу авто в Києві</h3>
+              <div className="flex flex-col md:flex-row gap-8 items-start">
+                <div className="flex-1">
+                  <p className="text-gray-700 mb-4">Ціна на <strong>детейлінг авто в Києві</strong> залежить від:</p>
+                  <ul className="list-disc pl-5 space-y-2 text-gray-700">
+                    <li>типу та розміру автомобіля</li>
+                    <li>обраного комплексу послуг</li>
+                    <li>стану кузова та салону</li>
+                    <li>виду захисного покриття</li>
+                  </ul>
+                  <p className="mt-4 text-gray-700 font-medium">Ми допоможемо підібрати оптимальне рішення для вашого авто та бюджету.</p>
+                </div>
+
+                <div className="flex-1 bg-primary-50 p-6 rounded-lg border border-primary-100">
+                  <h4 className="text-xl font-bold text-gray-900 mb-2">Замовити детейлінг авто в Києві</h4>
+                  <p className="text-gray-700 mb-6">
+                    Хочете, щоб ваш автомобіль виглядав як новий і був захищений від зовнішніх впливів? Запрошуємо до <strong>Detailing4K</strong> — професійної <strong>студії детейлінгу в Києві</strong>.
+                  </p>
+                  <p className="text-gray-900 font-bold mb-6">
+                    Detailing4K — якісний детейлінг авто в Києві з видимим результатом.
+                  </p>
+                  <Link
+                    href="/contact"
+                    className="inline-block bg-primary-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-primary-700 transition-colors w-full text-center"
+                  >
+                    Зв'язатися з нами
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Why Choose Us */}
       <section className="py-16 px-4">
         <div className="container mx-auto max-w-6xl">
@@ -172,24 +275,42 @@ export default async function Home() {
           <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">Поради по догляду за авто</h2>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-xl transition-all">
-              <div className="h-48 bg-gray-800 relative flex items-center justify-center">
-                <span className="text-4xl">✨</span>
+            {(await prisma.post.findMany({
+              where: { published: true },
+              take: 6,
+              orderBy: { createdAt: 'desc' }
+            })).map((post) => (
+              <div key={post.id} className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-xl transition-all flex flex-col h-full">
+                <div className="h-48 bg-gray-800 relative flex items-center justify-center overflow-hidden">
+                  {post.imageUrl ? (
+                    <img src={post.imageUrl} alt={post.title} className="w-full h-full object-cover" />
+                  ) : (
+                    <span className="text-4xl">✨</span>
+                  )}
+                </div>
+                <div className="p-6 flex flex-col flex-grow">
+                  <h3 className="text-xl font-bold mb-3 text-gray-900 line-clamp-2">{post.title}</h3>
+                  <p className="text-gray-600 mb-4 line-clamp-3 text-sm flex-grow">
+                    {post.excerpt || post.content.substring(0, 150) + '...'}
+                  </p>
+                  <Link
+                    href={`/autodohlyad/${post.slug}`}
+                    className="text-primary-600 font-semibold hover:text-primary-500 inline-flex items-center text-sm"
+                  >
+                    Читати статтю <span className="ml-2">→</span>
+                  </Link>
+                </div>
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-3 text-gray-900">Як правильно полірувати авто: детальний гід</h3>
-                <p className="text-gray-600 mb-4 line-clamp-3">
-                  Дізнайтеся про етапи полірування, необхідні матеріали та різницю між домашнім та професійним доглядом.
-                  Покрокова інструкція для автолюбителів.
-                </p>
-                <Link
-                  href="/blog/how-to-polish-auto"
-                  className="text-primary-600 font-semibold hover:text-primary-500 inline-flex items-center"
-                >
-                  Читати статтю <span className="ml-2">→</span>
-                </Link>
-              </div>
-            </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Link
+              href="/autodohlyad"
+              className="inline-block bg-black text-white px-8 py-3 rounded-lg font-bold hover:bg-gray-900 transition-colors"
+            >
+              Більше порад →
+            </Link>
           </div>
         </div>
       </section>
