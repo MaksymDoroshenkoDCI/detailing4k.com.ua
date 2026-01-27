@@ -43,6 +43,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             changeFrequency: 'monthly',
             priority: 0.7,
         },
+        {
+            url: `${baseUrl}/blog/how-to-polish-auto`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.8,
+        },
         // Додати всі послуги
         ...services.map((service) => ({
             url: `${baseUrl}/services/${service.serviceId}`,
