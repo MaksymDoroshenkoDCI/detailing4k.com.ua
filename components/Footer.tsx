@@ -26,12 +26,12 @@ export default function Footer() {
               <li>Брожка 38/58, Київ, Україна</li>
               <li>
                 <a href="tel:+380989946178" className="hover:text-primary-500 transition-colors">
-                  +38 098 994 6178
+                  +38 098 994 61 78
                 </a>
               </li>
               <li>
                 <a href="tel:+380681670042" className="hover:text-primary-500 transition-colors">
-                  068 167 0042
+                  +38 068 167 00 42
                 </a>
               </li>
             </ul>

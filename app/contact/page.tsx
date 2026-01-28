@@ -133,13 +133,13 @@ export default function ContactPage() {
                     href="tel:+380989946178"
                     className="text-primary-700 hover:text-primary-600 font-semibold"
                   >
-                    +38 098 994 6178
+                    +38 098 994 61 78
                   </a>
                   <a
                     href="tel:+380681670042"
                     className="text-primary-700 hover:text-primary-600 font-semibold"
                   >
-                    068 167 0042
+                    +38 068 167 00 42
                   </a>
                 </div>
               </div>
