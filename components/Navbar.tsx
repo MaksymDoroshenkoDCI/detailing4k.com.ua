@@ -106,7 +106,7 @@ export default function Navbar() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-gray-700"
+            className="md:hidden text-gray-300"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -117,25 +117,25 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t">
+          <div className="md:hidden py-4 border-t border-gray-800">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`block py-2 ${pathname === link.href ? 'text-primary-600 font-semibold' : 'text-gray-700'
+                className={`block py-2 ${pathname === link.href ? 'text-primary-500 font-semibold' : 'text-gray-300'
                   }`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 {link.label}
               </Link>
             ))}
-            <div className="pt-4 border-t mt-4">
+            <div className="pt-4 border-t border-gray-800 mt-4">
               {user ? (
                 <>
                   {user.role ? (
                     <Link
                       href="/admin"
-                      className="block bg-primary-600 text-white px-4 py-2 rounded-lg mb-2 text-center"
+                      className="block bg-primary-500 text-black px-4 py-2 rounded-lg mb-2 text-center font-semibold"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Адмін панель
@@ -143,7 +143,7 @@ export default function Navbar() {
                   ) : (
                     <Link
                       href="/account"
-                      className="block bg-primary-600 text-white px-4 py-2 rounded-lg mb-2 text-center"
+                      className="block bg-primary-500 text-black px-4 py-2 rounded-lg mb-2 text-center font-semibold"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Мій кабінет
@@ -154,7 +154,7 @@ export default function Navbar() {
                       handleLogout()
                       setIsMenuOpen(false)
                     }}
-                    className="block w-full text-left text-gray-700 py-2"
+                    className="block w-full text-left text-gray-300 py-2"
                   >
                     Вийти
                   </button>
@@ -163,14 +163,14 @@ export default function Navbar() {
                 <>
                   <Link
                     href="/login"
-                    className="block text-gray-700 py-2"
+                    className="block text-gray-300 py-2"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Увійти
                   </Link>
                   <Link
                     href="/register"
-                    className="block bg-primary-600 text-white px-4 py-2 rounded-lg mt-2 text-center"
+                    className="block bg-primary-500 text-black px-4 py-2 rounded-lg mt-2 text-center font-semibold"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Реєстрація
