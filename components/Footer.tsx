@@ -23,7 +23,7 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4 text-white">Контакти</h4>
             <ul className="space-y-2 text-gray-400">
-              <li>Брожка 38/58, Київ, Україна</li>
+              <li>вул. Володимира Брожка 38/58, Київ, Україна</li>
               <li>
                 <a href="tel:+380989946178" className="hover:text-primary-500 transition-colors">
                   +38 098 994 61 78

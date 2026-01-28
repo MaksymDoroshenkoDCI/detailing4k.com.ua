@@ -124,7 +124,7 @@ export default function ContactPage() {
             <div className="space-y-4">
               <div>
                 <h4 className="font-medium mb-1 text-gray-900">Адреса</h4>
-                <p className="text-gray-600">Брожка 38/58, Київ, Україна</p>
+                <p className="text-gray-600">вул. Володимира Брожка 38/58, Київ, Україна</p>
               </div>
               <div>
                 <h4 className="font-medium mb-1 text-gray-900">Телефон</h4>
