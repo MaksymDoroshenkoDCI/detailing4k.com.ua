@@ -196,17 +196,18 @@ export default function ContactPage() {
                 scrolling="no"
                 marginHeight={0}
                 marginWidth={0}
-                src="https://maps.google.com/maps?q=Брожка+38/58,+Київ&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2542.5652370895664!2d30.509576!3d50.4119396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4cf5a0829f613%3A0xfe497d3c54ef9e7a!2z0JTQtdGC0LXQudC70ZbQvdCzINGG0LXQvdGC0YAgNNCaIC0g0KXRltC80YfQuNGB0YLQutCwLCDQn9C-0LvRltGA0YPQstCw0L3QvdGPLCDQoNC10YHRgtCw0LLRgNCw0YbRltGPINGE0LDRgCAo0LTQtdGC0LXQudC70ZbQvdCzKQ!5e0!3m2!1suk!2sde!4v1769595696911!5m2!1suk!2sde"
                 title="Detailing 4K Location"
                 className="absolute inset-0"
               ></iframe>
             </div>
             <div className="mt-4 text-center">
               <a
-                href="https://maps.app.goo.gl/zHhKLhSyewB5mqnF9"
+                href="https://maps.app.goo.gl/N1Z1rARtvxPdNTK5A"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block bg-primary-500 text-black px-6 py-2 rounded-lg font-semibold hover:bg-primary-400 transition-colors"
+                title="Відкрити Google Maps"
               >
                 Відкрити в Google Maps
               </a>

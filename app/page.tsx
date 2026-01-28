@@ -450,6 +450,20 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      {/* Full-width Map Section */}
+      <section className="w-full h-[400px] relative mt-16 grayscale hover:grayscale-0 transition-all duration-700">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2542.5652370895664!2d30.509576!3d50.4119396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4cf5a0829f613%3A0xfe497d3c54ef9e7a!2z0JTQtdGC0LXQudC70ZbQvdCzINGG0LXQvdGC0YAgNNCaIC0g0KXRltC80YfQuNGB0YLQutCwLCDQn9C-0LvRltGA0YPQstCw0L3QvdGPLCDQoNC10YHRgtCw0LLRgNCw0YbRltGPINGE0LDRgCAo0LTQtdGC0LXQudC70ZbQvdCzKQ!5e0!3m2!1suk!2sde!4v1769595696911!5m2!1suk!2sde"
+          width="100%"
+          height="100%"
+          style={{ border: 0 }}
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          title="Студія Detailing 4K на карті"
+        />
+      </section>
     </div>
   )
 }
