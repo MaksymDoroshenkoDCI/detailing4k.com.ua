@@ -60,8 +60,8 @@ export default function AdminTestimonialsPage() {
   const approvedTestimonials = testimonials.filter((t) => t.approved)
 
   return (
-    <div className="container mx-auto max-w-6xl px-4 py-16">
-      <h1 className="text-4xl font-bold mb-8">Керування відгуками</h1>
+    <div className="container mx-auto max-w-6xl px-4 py-16 text-white">
+      <h1 className="text-4xl font-bold mb-8 text-white">Керування відгуками</h1>
 
       {pendingTestimonials.length > 0 && (
         <div className="mb-12">
@@ -74,7 +74,7 @@ export default function AdminTestimonialsPage() {
               >
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <p className="font-semibold">
+                    <p className="font-semibold text-gray-900">
                       {testimonial.client?.name || testimonial.clientName || 'Анонімний'}
                     </p>
                     {testimonial.rating && (
@@ -103,7 +103,7 @@ export default function AdminTestimonialsPage() {
       )}
 
       <div>
-        <h2 className="text-2xl font-semibold mb-4">Схвалені відгуки</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-white">Схвалені відгуки</h2>
         <div className="grid md:grid-cols-2 gap-6">
           {approvedTestimonials.map((testimonial) => (
             <div
@@ -112,7 +112,7 @@ export default function AdminTestimonialsPage() {
             >
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <p className="font-semibold">
+                  <p className="font-semibold text-gray-900">
                     {testimonial.client?.name || testimonial.clientName || 'Анонімний'}
                   </p>
                   {testimonial.rating && (
