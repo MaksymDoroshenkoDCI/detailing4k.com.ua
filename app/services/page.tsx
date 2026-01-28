@@ -39,7 +39,7 @@ export default function ServicesPage() {
   return (
     <div className="container mx-auto max-w-6xl px-4 py-16">
       <h1 className="text-4xl font-bold mb-4 text-center">Наші послуги</h1>
-      <p className="text-center text-gray-600 mb-12">
+      <p className="text-center text-gray-400 mb-12">
         Виберіть послугу, яка вам потрібна, та запишіться онлайн
       </p>
 
