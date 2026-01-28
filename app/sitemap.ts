@@ -21,40 +21,42 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         }
     })
 
+    const staticDate = new Date('2026-01-27')
+
     return [
         {
             url: baseUrl,
-            lastModified: new Date(),
+            lastModified: staticDate,
             changeFrequency: 'daily',
-            priority: 1,
+            priority: 1.0,
         },
         {
             url: `${baseUrl}/services`,
-            lastModified: new Date(),
+            lastModified: staticDate,
             changeFrequency: 'weekly',
             priority: 0.9,
         },
         {
             url: `${baseUrl}/gallery`,
-            lastModified: new Date(),
+            lastModified: staticDate,
             changeFrequency: 'weekly',
             priority: 0.8,
         },
         {
             url: `${baseUrl}/autodohlyad`,
-            lastModified: new Date(),
+            lastModified: staticDate,
             changeFrequency: 'weekly',
             priority: 0.8,
         },
         {
             url: `${baseUrl}/booking`,
-            lastModified: new Date(),
+            lastModified: staticDate,
             changeFrequency: 'monthly',
-            priority: 0.9,
+            priority: 0.8,
         },
         {
             url: `${baseUrl}/contact`,
-            lastModified: new Date(),
+            lastModified: staticDate,
             changeFrequency: 'monthly',
             priority: 0.7,
         },
@@ -62,8 +64,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         ...services.map((service) => ({
             url: `${baseUrl}/services/${service.serviceId}`,
             lastModified: new Date(service.updatedAt),
-            changeFrequency: 'weekly' as const,
-            priority: 0.8,
+            changeFrequency: 'monthly' as const,
+            priority: 0.7,
         })),
         // Додати всі статті
         ...posts.map((post) => ({

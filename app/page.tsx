@@ -1,8 +1,19 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { prisma } from '@/lib/prisma'
+import { Metadata } from 'next'
 
 export const dynamic = 'force-dynamic'
+
+export const metadata: Metadata = {
+  title: 'Detailing 4K — Професійний детейлінг авто в Києві',
+  description: 'Преміальний детейлінг у Києві. Полірування, кераміка, хімчистка та антигравійна плівка. Відновлення та захист вашого авто в студії Detailing 4K.',
+  openGraph: {
+    title: 'Detailing 4K — Професійний детейлінг авто в Києві',
+    description: 'Преміальний детейлінг, полірування, кераміка, захист кузова та салону.',
+    images: ['/opengraph-image'],
+  }
+}
 
 export default async function Home() {
   const services = await prisma.service.findMany({

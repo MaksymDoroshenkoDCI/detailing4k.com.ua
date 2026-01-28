@@ -1,8 +1,16 @@
-# Detailing 4K - Robots.txt
 User-agent: *
 Allow: /
-Disallow: /admin/
-Disallow: /api/admin/
 
-# Sitemap
+# Забезпечує швидку індексацію
 Sitemap: https://detailing4k.com.ua/sitemap.xml
+
+# Дозволяє Google рендерити сайт
+Allow: /_next/
+Allow: /images/
+Allow: /static/
+Allow: /api/
+
+# Заборона технічних сторінок (якщо вони існують)
+Disallow: /admin/
+Disallow: /private/
+Disallow: /draft/

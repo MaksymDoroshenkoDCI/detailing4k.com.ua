@@ -11,10 +11,10 @@ const inter = Inter({ subsets: ['latin', 'cyrillic'] })
 export const metadata: Metadata = {
   metadataBase: new URL('https://detailing4k.com.ua'),
   title: {
-    default: 'Детейлінг авто в Києві — студія Detailing4K',
-    template: '%s | Detailing4K'
+    default: 'Detailing 4K — Професійний детейлінг',
+    template: '%s | Detailing 4K'
   },
-  description: 'Студія Detailing4K — професійний догляд за авто в Києві: полірування, кераміка, хімчистка, антигравійна плівка. Якісний детейлінг авто Київ з гарантією результату ⭐',
+  description: 'Преміальний детейлінг, полірування, кераміка, захист кузова та салону.',
   keywords: [
     'детейлінг київ',
     'детейлінг авто київ',
@@ -39,26 +39,26 @@ export const metadata: Metadata = {
     apple: '/favicon.png',
   },
   openGraph: {
-    type: 'website',
-    locale: 'uk_UA',
+    title: 'Detailing 4K — Професійний детейлінг',
+    description: 'Преміальний детейлінг, полірування, кераміка, захист кузова та салону.',
     url: 'https://detailing4k.com.ua',
     siteName: 'Detailing 4K',
-    title: 'Detailing 4K - Професійний авто детейлінг у Києві',
-    description: 'Професійний авто детейлінг: полірування, керамічне покриття, хімчистка салону. Відновлюємо ваш автомобіль до ідеального стану ⭐',
     images: [
       {
-        url: '/logo.png',
+        url: '/opengraph-image',
         width: 1200,
         height: 630,
-        alt: 'Detailing 4K - Професійний авто детейлінг',
-      },
+        alt: 'Detailing 4K — Детейлінг у Києві'
+      }
     ],
+    locale: 'uk_UA',
+    type: 'website'
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Detailing 4K - Професійний авто детейлінг у Києві',
-    description: 'Професійний авто детейлінг: полірування, керамічне покриття, хімчистка салону',
-    images: ['/logo.png'],
+    title: 'Detailing 4K',
+    description: 'Преміальний детейлінг у Києві',
+    images: ['/opengraph-image']
   },
   robots: {
     index: true,

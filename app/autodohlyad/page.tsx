@@ -1,8 +1,19 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { prisma } from '@/lib/prisma'
+import { Metadata } from 'next'
 
 export const dynamic = 'force-dynamic'
+
+export const metadata: Metadata = {
+    title: 'Автодогляд — Корисні поради | Detailing 4K',
+    description: 'Блог про правильний догляд за автомобілем. Поради щодо полірування, хімчистки та захисту кузова від професіоналів Detailing 4K.',
+    openGraph: {
+        title: 'Поради по догляду за авто від Detailing 4K',
+        description: 'Дізнайтесь, як зберегти ідеальний вигляд вашого автомобіля.',
+        images: ['/opengraph-image'],
+    }
+}
 
 export default async function AutodohlyadPage() {
     const posts = await prisma.post.findMany({
