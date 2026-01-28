@@ -217,7 +217,7 @@ export default async function Home() {
               <h3 className="text-2xl font-bold text-gray-900 mb-6">Чому варто обрати студію детейлінгу Detailing4K у Києві</h3>
               <p className="text-gray-700 mb-4">Нас обирають клієнти, які цінують результат:</p>
               <ul className="text-gray-700 grid md:grid-cols-2 gap-3 list-none">
-                <li className="flex items-center"><span className="text-primary-500 mr-2">✓</span> професійний <strong>детейлінг у Києві</strong> з гарантією якості</li>
+                <li className="flex items-center"><span className="text-primary-500 mr-2">✓</span> професійний{' '}<strong>детейлінг у Києві</strong>{' '}з гарантією якості</li>
                 <li className="flex items-center"><span className="text-primary-500 mr-2">✓</span> використання сертифікованих матеріалів і автохімії</li>
                 <li className="flex items-center"><span className="text-primary-500 mr-2">✓</span> індивідуальний підбір комплексу послуг</li>
                 <li className="flex items-center"><span className="text-primary-500 mr-2">✓</span> чесна та прозора вартість</li>
