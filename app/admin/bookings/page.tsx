@@ -98,17 +98,19 @@ export default function AdminBookingsPage() {
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span
-                    className={`px-2 py-1 rounded-full text-xs ${
-                      booking.status === 'Confirmed'
+                    className={`px-2 py-1 rounded-full text-xs ${booking.status === 'Confirmed'
                         ? 'bg-green-100 text-green-800'
                         : booking.status === 'Pending'
-                        ? 'bg-yellow-100 text-yellow-800'
-                        : booking.status === 'Cancelled'
-                        ? 'bg-red-100 text-red-800'
-                        : 'bg-gray-100 text-gray-800'
-                    }`}
+                          ? 'bg-yellow-100 text-yellow-800'
+                          : booking.status === 'Cancelled'
+                            ? 'bg-red-100 text-red-800'
+                            : 'bg-gray-100 text-gray-800'
+                      }`}
                   >
-                    {booking.status}
+                    {booking.status === 'Pending' ? 'Очікує' :
+                      booking.status === 'Confirmed' ? 'Підтверджено' :
+                        booking.status === 'Completed' ? 'Виконано' :
+                          booking.status === 'Cancelled' ? 'Скасовано' : booking.status}
                   </span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
@@ -117,10 +119,10 @@ export default function AdminBookingsPage() {
                     onChange={(e) => updateStatus(booking.bookingId, e.target.value)}
                     className="text-sm border border-gray-300 rounded px-2 py-1 text-gray-900"
                   >
-                    <option value="Pending">Pending</option>
-                    <option value="Confirmed">Confirmed</option>
-                    <option value="Completed">Completed</option>
-                    <option value="Cancelled">Cancelled</option>
+                    <option value="Pending">Очікує</option>
+                    <option value="Confirmed">Підтверджено</option>
+                    <option value="Completed">Виконано</option>
+                    <option value="Cancelled">Скасовано</option>
                   </select>
                 </td>
               </tr>

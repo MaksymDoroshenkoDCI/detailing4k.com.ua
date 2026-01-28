@@ -25,6 +25,10 @@ export async function POST(request: NextRequest) {
       },
     })
 
+    // Відправити сповіщення адміністратору
+    const { sendAdminNotification } = await import('@/lib/email')
+    sendAdminNotification('consultation', consultation).catch(err => console.error('Email error:', err))
+
     return NextResponse.json(consultation, { status: 201 })
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -45,7 +49,7 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   try {
     const { error, user } = await requireAdmin(request)
-    
+
     if (error) return error
 
     const consultations = await prisma.consultation.findMany({

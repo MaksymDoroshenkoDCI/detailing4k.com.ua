@@ -76,24 +76,25 @@ export default function AdminConsultationsPage() {
               </div>
               <div className="flex items-center gap-4">
                 <span
-                  className={`px-3 py-1 rounded-full text-sm ${
-                    consultation.status === 'New'
+                  className={`px-3 py-1 rounded-full text-sm ${consultation.status === 'New'
                       ? 'bg-yellow-100 text-yellow-800'
                       : consultation.status === 'Reviewed'
-                      ? 'bg-blue-100 text-blue-800'
-                      : 'bg-green-100 text-green-800'
-                  }`}
+                        ? 'bg-blue-100 text-blue-800'
+                        : 'bg-green-100 text-green-800'
+                    }`}
                 >
-                  {consultation.status}
+                  {consultation.status === 'New' ? 'Нова' :
+                    consultation.status === 'Reviewed' ? 'Прийнята' :
+                      consultation.status === 'Responded' ? 'Відповіли' : consultation.status}
                 </span>
                 <select
                   value={consultation.status}
                   onChange={(e) => updateStatus(consultation.consultationId, e.target.value)}
                   className="text-sm border border-gray-300 rounded px-2 py-1"
                 >
-                  <option value="New">New</option>
-                  <option value="Reviewed">Reviewed</option>
-                  <option value="Responded">Responded</option>
+                  <option value="New">Нова</option>
+                  <option value="Reviewed">Прийнята</option>
+                  <option value="Responded">Відповіли</option>
                 </select>
               </div>
             </div>

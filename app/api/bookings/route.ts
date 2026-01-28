@@ -17,7 +17,7 @@ const bookingSchema = z.object({
 export async function POST(request: NextRequest) {
   try {
     const { error: authError, user } = await requireAuth(request)
-    
+
     const body = await request.json()
     const validatedData = bookingSchema.parse(body)
 
@@ -101,6 +101,10 @@ export async function POST(request: NextRequest) {
       },
     })
 
+    // Відправити сповіщення адміністратору
+    const { sendAdminNotification } = await import('@/lib/email')
+    sendAdminNotification('booking', booking).catch(err => console.error('Email error:', err))
+
     return NextResponse.json(booking, { status: 201 })
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -121,7 +125,7 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   try {
     const { error: authError, user } = await requireAuth(request)
-    
+
     if (authError) {
       return authError
     }
