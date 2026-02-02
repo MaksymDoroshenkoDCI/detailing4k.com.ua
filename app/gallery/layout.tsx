@@ -3,6 +3,9 @@ import { Metadata } from 'next'
 export const metadata: Metadata = {
     title: 'Галерея робіт | Detailing 4K',
     description: 'Приклади наших робіт: полірування, кераміка, хімчистка салону. Фото та відео результатів детейлінгу автомобілів у Києві.',
+    alternates: {
+        canonical: '/gallery',
+    },
     openGraph: {
         title: 'Галерея Detailing 4K — Результати нашої роботи',
         description: 'Дивіться фото до та після детейлінгу автомобілів у нашій студії.',

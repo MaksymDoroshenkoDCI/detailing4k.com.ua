@@ -21,7 +21,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         }
     })
 
-    const staticDate = new Date('2026-01-27')
+    const staticDate = new Date('2026-02-02')
 
     return [
         {
@@ -59,6 +59,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             lastModified: staticDate,
             changeFrequency: 'monthly',
             priority: 0.7,
+        },
+        {
+            url: `${baseUrl}/testimonials`,
+            lastModified: staticDate,
+            changeFrequency: 'weekly',
+            priority: 0.6,
         },
         // Додати всі послуги
         ...services.map((service) => ({

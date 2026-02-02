@@ -3,7 +3,30 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 
+import { Metadata } from 'next'
+
 export const dynamic = 'force-dynamic'
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+    const post = await prisma.post.findUnique({
+        where: { slug: params.slug },
+    })
+
+    if (!post) return {}
+
+    return {
+        title: post.title,
+        description: post.excerpt || post.content.substring(0, 160),
+        alternates: {
+            canonical: `/autodohlyad/${params.slug}`,
+        },
+        openGraph: {
+            title: post.title,
+            description: post.excerpt || post.content.substring(0, 160),
+            images: post.imageUrl ? [post.imageUrl] : ['/opengraph-image'],
+        }
+    }
+}
 
 export default async function PostDetailPage({
     params,

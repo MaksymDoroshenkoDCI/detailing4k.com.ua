@@ -8,6 +8,9 @@ export const dynamic = 'force-dynamic'
 export const metadata: Metadata = {
     title: 'Автодогляд — Корисні поради | Detailing 4K',
     description: 'Блог про правильний догляд за автомобілем. Поради щодо полірування, хімчистки та захисту кузова від професіоналів Detailing 4K.',
+    alternates: {
+        canonical: '/autodohlyad',
+    },
     openGraph: {
         title: 'Поради по догляду за авто від Detailing 4K',
         description: 'Дізнайтесь, як зберегти ідеальний вигляд вашого автомобіля.',

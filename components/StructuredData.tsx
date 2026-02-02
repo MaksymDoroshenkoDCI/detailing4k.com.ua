@@ -10,15 +10,15 @@ export default function StructuredData() {
         priceRange: '$$',
         address: {
             '@type': 'PostalAddress',
-            streetAddress: 'Київ',
+            streetAddress: 'вул. Володимира Брожка 38/58',
             addressLocality: 'Київ',
             addressRegion: 'Київська область',
             addressCountry: 'UA'
         },
         geo: {
             '@type': 'GeoCoordinates',
-            latitude: 50.4501,
-            longitude: 30.5234
+            latitude: 50.4119396,
+            longitude: 30.509576
         },
         openingHoursSpecification: [
             {
@@ -31,13 +31,13 @@ export default function StructuredData() {
                     'Friday'
                 ],
                 opens: '09:00',
-                closes: '19:00'
+                closes: '18:00'
             },
             {
                 '@type': 'OpeningHoursSpecification',
                 dayOfWeek: 'Saturday',
                 opens: '10:00',
-                closes: '18:00'
+                closes: '16:00'
             }
         ],
         sameAs: [
