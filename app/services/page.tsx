@@ -39,8 +39,13 @@ export default function ServicesPage() {
   return (
     <div className="container mx-auto max-w-6xl px-4 py-16">
       <h1 className="text-4xl font-bold mb-4 text-center">Наші послуги</h1>
-      <p className="text-center text-gray-400 mb-12">
+      <p className="text-center text-gray-400 mb-6">
         Виберіть послугу, яка вам потрібна, та запишіться онлайн
+      </p>
+      <p className="max-w-3xl mx-auto text-center text-gray-600 mb-12">
+        Ми пропонуємо повний спектр професійних послуг з догляду за вашим автомобілем у Києві.
+        Наші фахівці використовують лише преміальну автохімію та сучасне обладнання, щоб забезпечити ідеальний результат у форматі 4K.
+        Від глибокої хімчистки салону до нанесення захисних керамічних покриттів — ми дбаємо про кожну деталь вашого авто.
       </p>
 
       {!Array.isArray(services) || services.length === 0 ? (
