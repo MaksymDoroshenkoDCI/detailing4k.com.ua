@@ -16,7 +16,7 @@ async function importAll() {
   try {
     console.log('📥 Importing data into the NEW database...')
 
-    // 1. Admins (skip if already exists based on email)
+    // 1. Admins
     console.log('👤 Importing Admins...')
     for (const item of data.admin) {
       try {
@@ -36,12 +36,13 @@ async function importAll() {
             createdAt: new Date(item.createdAt),
           }
         })
+        console.log(`   ✓ Admin ${item.email} imported`)
       } catch (e) {
-        console.error(`   ✗ Admin ${item.email} failed: ${e.message.split('\n')[0]}`)
+        console.error(`   ✗ Admin ${item.email} failed:`, e.message)
       }
     }
 
-    // 2. Clients (skip if already exists based on email)
+    // 2. Clients
     console.log('👥 Importing Clients...')
     for (const item of data.client) {
       try {
@@ -54,8 +55,9 @@ async function importAll() {
             updatedAt: new Date(item.updatedAt),
           }
         })
+        console.log(`   ✓ Client ${item.email} imported`)
       } catch (e) {
-        console.error(`   ✗ Client ${item.email} failed: ${e.message.split('\n')[0]}`)
+        console.error(`   ✗ Client ${item.email} failed:`, e.message)
       }
     }
 
@@ -63,15 +65,18 @@ async function importAll() {
     console.log('📁 Importing Categories...')
     for (const item of data.serviceCategory) {
       try {
-        await prisma.serviceCategory.create({
-          data: {
+        await prisma.serviceCategory.upsert({
+          where: { categoryId: item.categoryId },
+          update: item,
+          create: {
             ...item,
             createdAt: new Date(item.createdAt),
             updatedAt: new Date(item.updatedAt),
           }
         })
+        console.log(`   ✓ Category ${item.name} imported`)
       } catch (e) {
-        console.error(`   ✗ Category ${item.name} failed: ${e.message.split('\n')[0]}`)
+        console.error(`   ✗ Category ${item.name} failed:`, e.message)
       }
     }
 
@@ -79,15 +84,18 @@ async function importAll() {
     console.log('📦 Importing Services...')
     for (const item of data.service) {
       try {
-        await prisma.service.create({
-          data: {
+        await prisma.service.upsert({
+          where: { serviceId: item.serviceId },
+          update: item,
+          create: {
             ...item,
             createdAt: new Date(item.createdAt),
             updatedAt: new Date(item.updatedAt),
           }
         })
+        console.log(`   ✓ Service ${item.name} imported`)
       } catch (e) {
-        console.error(`   ✗ Service ${item.name} failed: ${e.message.split('\n')[0]}`)
+        console.error(`   ✗ Service ${item.name} failed:`, e.message)
       }
     }
 
@@ -95,7 +103,6 @@ async function importAll() {
     console.log('🖼️ Importing Gallery Images...')
     for (const item of data.galleryImage) {
       try {
-        // Handle images field (JSON string)
         let parsedImages = item.images
         if (typeof parsedImages === 'string') {
           try {
@@ -105,16 +112,22 @@ async function importAll() {
           }
         }
         
-        await prisma.galleryImage.create({
-          data: {
+        await prisma.galleryImage.upsert({
+          where: { imageId: item.imageId },
+          update: {
+            ...item,
+            images: JSON.stringify(parsedImages),
+          },
+          create: {
             ...item,
             images: JSON.stringify(parsedImages), 
             createdAt: new Date(item.createdAt),
             updatedAt: new Date(item.updatedAt),
           }
         })
+        console.log(`   ✓ Gallery Image ${item.title} imported`)
       } catch (e) {
-        console.error(`   ✗ Gallery Image ${item.title} failed: ${e.message.split('\n')[0]}`)
+        console.error(`   ✗ Gallery Image ${item.title} failed:`, e.message)
       }
     }
 
@@ -122,14 +135,17 @@ async function importAll() {
     console.log('⭐ Importing Testimonials...')
     for (const item of data.testimonial) {
       try {
-        await prisma.testimonial.create({
-          data: {
+        await prisma.testimonial.upsert({
+          where: { testimonialId: item.testimonialId },
+          update: item,
+          create: {
             ...item,
             datePosted: new Date(item.datePosted),
           }
         })
+        console.log(`   ✓ Testimonial from ${item.clientName} imported`)
       } catch (e) {
-        console.error(`   ✗ Testimonial failed: ${e.message.split('\n')[0]}`)
+        console.error(`   ✗ Testimonial failed:`, e.message)
       }
     }
 
@@ -137,15 +153,18 @@ async function importAll() {
     console.log('💬 Importing Consultations...')
     for (const item of data.consultation) {
       try {
-        await prisma.consultation.create({
-          data: {
+        await prisma.consultation.upsert({
+          where: { consultationId: item.consultationId },
+          update: item,
+          create: {
             ...item,
             createdAt: new Date(item.createdAt),
             updatedAt: new Date(item.updatedAt),
           }
         })
+        console.log(`   ✓ Consultation from ${item.name} imported`)
       } catch (e) {
-        console.error(`   ✗ Consultation failed: ${e.message.split('\n')[0]}`)
+        console.error(`   ✗ Consultation failed:`, e.message)
       }
     }
 
@@ -153,14 +172,17 @@ async function importAll() {
     console.log('💡 Importing Recommendations...')
     for (const item of data.recommendation) {
       try {
-        await prisma.recommendation.create({
-          data: {
+        await prisma.recommendation.upsert({
+          where: { recommendationId: item.recommendationId },
+          update: item,
+          create: {
             ...item,
             createdAt: new Date(item.createdAt),
           }
         })
+        console.log(`   ✓ Recommendation ${item.recommendationId} imported`)
       } catch (e) {
-        console.error(`   ✗ Recommendation failed: ${e.message.split('\n')[0]}`)
+        console.error(`   ✗ Recommendation failed:`, e.message)
       }
     }
 
@@ -168,32 +190,19 @@ async function importAll() {
     console.log('📅 Importing Bookings...')
     for (const item of data.booking) {
       try {
-        await prisma.booking.create({
-          data: {
+        await prisma.booking.upsert({
+          where: { bookingId: item.bookingId },
+          update: item,
+          create: {
             ...item,
             bookingDate: new Date(item.bookingDate),
             createdAt: new Date(item.createdAt),
             updatedAt: new Date(item.updatedAt),
           }
         })
+        console.log(`   ✓ Booking ${item.bookingId} imported`)
       } catch (e) {
-        console.error(`   ✗ Booking failed: ${e.message.split('\n')[0]}`)
-      }
-    }
-
-    // 10. Posts
-    console.log('📝 Importing Posts...')
-    for (const item of data.post) {
-      try {
-        await prisma.post.create({
-          data: {
-            ...item,
-            createdAt: new Date(item.createdAt),
-            updatedAt: new Date(item.updatedAt),
-          }
-        })
-      } catch (e) {
-        console.error(`   ✗ Post failed: ${e.message.split('\n')[0]}`)
+        console.error(`   ✗ Booking failed:`, e.message)
       }
     }
 
