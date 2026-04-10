@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma'
 import { requireAdmin } from '@/lib/middleware'
 import { z } from 'zod'
 
+export const dynamic = 'force-dynamic'
+
 const postSchema = z.object({
     title: z.string().min(1, 'Title is required'),
     slug: z.string().min(1, 'Slug is required'),

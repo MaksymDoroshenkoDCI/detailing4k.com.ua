@@ -17,6 +17,7 @@ export default function Footer() {
               <li><Link href="/" className="hover:text-primary-500 transition-colors">Головна</Link></li>
               <li><Link href="/services" className="hover:text-primary-500 transition-colors">Послуги</Link></li>
               <li><Link href="/gallery" className="hover:text-white transition-colors">Галерея</Link></li>
+              <li><Link href="/podbir-avto" className="hover:text-primary-500 transition-colors">Підбір авто</Link></li>
               <li><Link href="/testimonials" className="hover:text-primary-500 transition-colors">Відгуки</Link></li>
             </ul>
           </div>

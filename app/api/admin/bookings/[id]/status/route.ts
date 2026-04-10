@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma'
 import { requireAdmin } from '@/lib/middleware'
 import { z } from 'zod'
 
+export const dynamic = 'force-dynamic'
+
 const statusSchema = z.object({
   status: z.enum(['Pending', 'Confirmed', 'Completed', 'Cancelled']),
 })

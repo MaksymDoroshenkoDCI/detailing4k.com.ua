@@ -49,6 +49,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.8,
         },
         {
+            url: `${baseUrl}/podbir-avto`,
+            lastModified: staticDate,
+            changeFrequency: 'monthly',
+            priority: 0.85,
+        },
+        {
             url: `${baseUrl}/booking`,
             lastModified: staticDate,
             changeFrequency: 'monthly',

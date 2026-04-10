@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma'
 import { requireAuth } from '@/lib/middleware'
 import { z } from 'zod'
 
+export const dynamic = 'force-dynamic'
+
 const bookingSchema = z.object({
   serviceId: z.string().uuid(),
   bookingDate: z.string(),

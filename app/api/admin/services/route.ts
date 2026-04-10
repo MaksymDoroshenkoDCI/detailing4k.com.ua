@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma'
 import { requireAdmin } from '@/lib/middleware'
 import { z } from 'zod'
 
+export const dynamic = 'force-dynamic'
+
 const serviceSchema = z.object({
   name: z.string().min(1),
   description: z.string().optional(),
