@@ -88,7 +88,7 @@ export default function PodbirAvtoPage() {
             Ми працюємо в 16 регіонах України
           </p>
           <h2 className="mt-3 text-center text-2xl font-bold text-gray-900 md:text-3xl">
-            CarFinder — всеукраїнський сервіс підбору авто
+            Detailing 4K — всеукраїнський сервіс підбору авто
           </h2>
           <p className="mt-6 text-lg leading-relaxed text-gray-700">
             Сучасні технології дозволяють відремонтувати аварійний автомобіль майже без слідів. Але чи
