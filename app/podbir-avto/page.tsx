@@ -81,7 +81,7 @@ export default function PodbirAvtoPage() {
         </div>
       </section>
 
-      {/* Intro + CarFinder */}
+      {/* Підбір авто — Detailing 4K */}
       <section className="border-b border-gray-100 bg-gray-50 py-14">
         <div className="container mx-auto max-w-3xl px-4">
           <p className="text-center text-sm font-semibold uppercase tracking-wide text-primary-700">
@@ -99,7 +99,7 @@ export default function PodbirAvtoPage() {
             Маємо доступ до баз даних: перевіряємо пробіг, історію робіт, участь у ДТП і реальну кількість
             власників. Наші агенти є в <strong className="text-gray-900">16 містах України</strong>. Ми
             знаємо, на що звертати увагу, і вміємо аргументовано торгуватися. Займайтеся своїми справами —
-            свою винагороду ми гарантовано відпрацюємо. Автопідбір по Україні — це CarFinder разом із
+            свою винагороду ми гарантовано відпрацюємо. Професійний автопідбір по Україні — це послуга
             Detailing 4K.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
@@ -208,7 +208,7 @@ export default function PodbirAvtoPage() {
             </p>
             <p>
               Не варто орієнтуватися на оголошення з віддалених маленьких міст без нормального сервісу та
-              інфраструктури — такі авто часто не пройдуть нашу перевірку CarFinder і з високою
+              інфраструктури — такі авто часто не пройдуть нашу експертну перевірку Detailing 4K і з високою
               ймовірністю матимуть приховані ризики.
             </p>
             <p className="rounded-xl border border-primary-200 bg-primary-50/80 p-5 font-medium text-gray-900">
