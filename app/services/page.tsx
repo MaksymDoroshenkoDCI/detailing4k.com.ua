@@ -76,7 +76,7 @@ export default function ServicesPage() {
                     {service.category.name}
                   </span>
                 )}
-                <p className="text-gray-600 mb-4 line-clamp-3">
+                <p className="text-gray-600 mb-4 line-clamp-3 whitespace-pre-line">
                   {service.description || 'Опис послуги'}
                 </p>
                 <div className="flex justify-between items-center">

@@ -97,7 +97,7 @@ export default function GalleryPage() {
                     {image.title || 'Наші роботи'}
                   </h2>
                   {image.description && (
-                    <p className="text-lg md:text-xl opacity-90 max-w-2xl drop-shadow-sm">
+                    <p className="text-lg md:text-xl opacity-90 max-w-2xl drop-shadow-sm whitespace-pre-line">
                       {image.description}
                     </p>
                   )}
@@ -169,7 +169,7 @@ export default function GalleryPage() {
                       </div>
                     )}
                     {image.description && (
-                      <p className="text-gray-600 leading-relaxed mb-6">
+                      <p className="text-gray-600 leading-relaxed mb-6 whitespace-pre-line">
                         {image.description}
                       </p>
                     )}

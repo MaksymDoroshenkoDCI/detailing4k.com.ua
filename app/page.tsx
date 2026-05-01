@@ -127,7 +127,7 @@ export default async function Home() {
                 <div className="p-6 flex flex-col flex-grow">
                   <h3 className="text-xl font-semibold mb-2 text-gray-900">{service.name}</h3>
 
-                  <p className="text-gray-600 mb-4 flex-grow line-clamp-3">
+                  <p className="text-gray-600 mb-4 flex-grow line-clamp-3 whitespace-pre-line">
                     {service.description}
                   </p>
 
