@@ -183,7 +183,7 @@ function ContactFormInner() {
                     WhatsApp
                   </a>
                   <a
-                    href="https://t.me/+8s6f74D5ZKkzYjg6"
+                    href="https://t.me/Detaling_4k"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[#0088cc] hover:text-[#0077b5]"

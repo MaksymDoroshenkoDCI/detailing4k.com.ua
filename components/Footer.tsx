@@ -65,7 +65,7 @@ export default function Footer() {
                 YouTube
               </a>
               <a
-                href="https://t.me/+8s6f74D5ZKkzYjg6"
+                href="https://t.me/Detaling_4k"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-primary-500 transition-colors font-bold"

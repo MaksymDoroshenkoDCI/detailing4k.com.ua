@@ -93,7 +93,7 @@ export default function ConsultantWidget() {
                             </a>
 
                             <a
-                                href="https://t.me/+8s6f74D5ZKkzYjg6"
+                                href="https://t.me/Detaling_4k"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors text-gray-700 font-medium"

@@ -41,7 +41,7 @@ export default function StructuredData() {
             }
         ],
         sameAs: [
-            'https://t.me/+8s6f74D5ZKkzYjg6'
+            'https://t.me/Detaling_4k'
         ],
         aggregateRating: {
             '@type': 'AggregateRating',
